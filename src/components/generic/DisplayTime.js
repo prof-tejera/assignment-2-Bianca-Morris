@@ -8,9 +8,8 @@ const Time = styled.div`
     font-family: 'SourceCodePro';
 `;
 
-class DisplayTime extends React.Component {
-  render() {
-    const { hours, minutes, seconds } = this.props;
+const DisplayTime = (props) => {
+    const { hours, minutes, seconds } = props;
     return (
         <Time>
             {transformTimeUnitToDisplayString(hours, "h")}:
@@ -18,7 +17,6 @@ class DisplayTime extends React.Component {
             {transformTimeUnitToDisplayString(seconds, "s")}
         </Time>
     );
-  }
 }
 DisplayTime.propTypes = {
     hours: globalPropTypes.hours,

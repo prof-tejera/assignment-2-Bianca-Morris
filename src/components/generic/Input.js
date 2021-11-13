@@ -19,16 +19,14 @@ const StyledInput = styled.input`
     }
 `;
 
-class Input extends React.Component {
-  render() {
-    const { type, name, onChange, disabled, placeholder, value } = this.props;
+const Input = (props) => {
+    const { type, name, onChange, disabled, placeholder, value } = props;
     return (
         <React.Fragment>
             <HiddenLabel {...{ name }} ></HiddenLabel>
             <StyledInput {...{ name, type, onChange, disabled, placeholder, value }} />
         </React.Fragment>
     );
-  }
 }
 Input.propTypes = {
     name: globalPropTypes.name.isRequired,

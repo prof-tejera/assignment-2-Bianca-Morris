@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import { H1 } from "../../utils/tokensAndTheme";
 import Button, { ButtonSpacer } from "../generic/Button";
@@ -7,35 +8,27 @@ import TimeInput, { TimeInputLabel } from "../generic/TimeInput";
 
 
 
-class Countdown extends React.Component {
-  onStart = () => {
-    console.log("Clicked Start!");
-  }
-
-  onReset = () => {
-    console.log("Clicked Reset!");
-  }
-
-  onInputStartTime = () => {
-    console.log("start time");
-  }
-
-  render() {
-    return (
-      <React.Fragment>
-        <H1>Countdown</H1>
-        <DisplayTime />
-        <TimeInputLabel>
-          Start Time:
-          <TimeInput onChange={this.onInputStartTime}/>
-        </TimeInputLabel>
-        <ButtonSpacer>
-          <Button onClick={this.onStart}>START</Button>
-          <Button onClick={this.onReset} variant="secondary">RESET</Button>
-        </ButtonSpacer>
-      </React.Fragment>
-    );
-  }
+const Countdown = (props) => {
+  const { onInputStartTime, onStart, onReset } = props;
+  return (
+    <React.Fragment>
+      <H1>Countdown</H1>
+      <DisplayTime />
+      <TimeInputLabel>
+        Start Time:
+        <TimeInput onChange={onInputStartTime}/>
+      </TimeInputLabel>
+      <ButtonSpacer>
+        <Button onClick={onStart}>START</Button>
+        <Button onClick={onReset} variant="secondary">RESET</Button>
+      </ButtonSpacer>
+    </React.Fragment>
+  );
+}
+Countdown.propTypes = {
+  onInputStartTime: PropTypes.func,
+  onStart: PropTypes.func,
+  onReset: PropTypes.func,
 }
 
 export default Countdown;

@@ -28,19 +28,15 @@ const InnerPane = styled.div`
 `;
 
 
-class Panel extends React.Component {
-
-    render() {
-        const { children } = this.props;
-        return (
-            <ImageBackgroundPane>
-                <InnerPane>
-                { children }
-                </InnerPane>  
-            </ImageBackgroundPane>
-        );
-    }
-    
+const Panel = (props) => {
+    const { children } = props;
+    return (
+        <ImageBackgroundPane>
+            <InnerPane>
+            { children }
+            </InnerPane>  
+        </ImageBackgroundPane>
+    );   
 }
 Panel.propTypes = {
     children: globalPropTypes.children.isRequired,

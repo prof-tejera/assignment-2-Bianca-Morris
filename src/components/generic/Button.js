@@ -40,25 +40,23 @@ const ButtonDanger = styled(BaseButton)`
     }
 `;
 
-class Button extends React.Component {
-    render() {
-        const { children, variant, ...passProps } = this.props;
+const Button = (props) => {
+    const { children, variant, ...passProps } = props;
 
-        switch(variant) {
-            case "secondary":
-                return (
-                    <ButtonSecondary {...{ passProps }}>{children}</ButtonSecondary>
-                );
-            case "danger": 
-                return (
-                    <ButtonDanger {...{ passProps }}>{children}</ButtonDanger>
-                );
-            case "primary":
-            default: 
-                return (
-                    <ButtonPrimary {...{ passProps }}>{children}</ButtonPrimary>
-                );
-        }
+    switch(variant) {
+        case "secondary":
+            return (
+                <ButtonSecondary {...{ passProps }}>{children}</ButtonSecondary>
+            );
+        case "danger": 
+            return (
+                <ButtonDanger {...{ passProps }}>{children}</ButtonDanger>
+            );
+        case "primary":
+        default: 
+            return (
+                <ButtonPrimary {...{ passProps }}>{children}</ButtonPrimary>
+            );
     }
 }
 Button.propTypes = {

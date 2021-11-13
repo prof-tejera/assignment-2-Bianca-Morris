@@ -12,17 +12,15 @@ const Rounds = styled.div`
   font-family: BubblegumSans;
 `;
 
-class DisplayRounds extends React.Component {
-  render() {
-    const { currRound, totalRounds, isRest } = this.props;
-    return (
-        <Rounds>
-            (Round: {currRound}
-            {totalRounds > 0 && <span> of {totalRounds}</span>}
-            { isRest && <span> - Rest</span>})
-        </Rounds>
-    );
-  }
+const DisplayRounds = (props) => {
+  const { currRound, totalRounds, isRest } = props;
+  return (
+    <Rounds>
+        (Round: {currRound}
+        {totalRounds > 0 && <span> of {totalRounds}</span>}
+        { isRest && <span> - Rest</span>})
+    </Rounds>
+  );
 }
 DisplayRounds.propTypes = {
     totalRounds: globalPropTypes.totalRounds,

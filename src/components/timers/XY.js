@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import { H1 } from "../../utils/tokensAndTheme";
 import Button, { ButtonSpacer } from "../generic/Button";
@@ -8,44 +9,33 @@ import TimeInput, { TimeInputLabel } from "../generic/TimeInput";
 import Input from "../generic/Input";
 
 
-class XY extends React.Component {
-  onStart = () => {
-    console.log("Clicked Start!");
-  }
-
-  onReset = () => {
-    console.log("Clicked Reset!");
-  }
-
-  onInputStartTime = () => {
-    console.log("start time");
-  }
-
-  onInputRounds = () => {
-    console.log("rounds");
-  }
-
-  render() {
-    return (
-      <React.Fragment>
-        <H1>XY</H1>
-        <DisplayRounds />
-        <DisplayTime />
-        <TimeInputLabel>
-          Start Time:
-          <TimeInput onChange={this.onInputStartTime}/>
-        </TimeInputLabel>
-        <RoundsLabel>
-          # of Rounds:
-          <Input name="numRoundsXY" placeholder="1" onChange={this.onInputRounds}/>
-        </RoundsLabel>
-        <ButtonSpacer>
-          <Button onClick={this.onStart}>START</Button>
-          <Button onClick={this.onReset} variant="secondary">RESET</Button>
-        </ButtonSpacer>
-      </React.Fragment>
-    );
-  }
+const XY = (props) => {
+  const { onStart, onReset, onInputStartTime, onInputRounds } = props;
+  return (
+    <React.Fragment>
+      <H1>XY</H1>
+      <DisplayRounds />
+      <DisplayTime />
+      <TimeInputLabel>
+        Start Time:
+        <TimeInput onChange={onInputStartTime}/>
+      </TimeInputLabel>
+      <RoundsLabel>
+        # of Rounds:
+        <Input name="numRoundsXY" placeholder="1" onChange={onInputRounds}/>
+      </RoundsLabel>
+      <ButtonSpacer>
+        <Button onClick={onStart}>START</Button>
+        <Button onClick={onReset} variant="secondary">RESET</Button>
+      </ButtonSpacer>
+    </React.Fragment>
+  );
+}
+XY.propTypes = {
+  onInputStartTime: PropTypes.func,
+  onInputRounds: PropTypes.func,
+  onStart: PropTypes.func,
+  onReset: PropTypes.func,
 }
 
 export default XY;
