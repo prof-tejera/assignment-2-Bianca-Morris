@@ -12,9 +12,9 @@ const DisplayTime = (props) => {
     const { hours, minutes, seconds } = props;
     return (
         <Time>
-            {transformTimeUnitToDisplayString(hours, "h")}:
-            {transformTimeUnitToDisplayString(minutes, "m")}:
-            {transformTimeUnitToDisplayString(seconds, "s")}
+            {transformTimeUnitToDisplayString(hours || 0, "h")}:
+            {transformTimeUnitToDisplayString(minutes || 0, "m")}:
+            {transformTimeUnitToDisplayString(seconds|| 0, "s")}
         </Time>
     );
 }
