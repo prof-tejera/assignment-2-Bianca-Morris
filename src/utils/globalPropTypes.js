@@ -20,6 +20,8 @@ export const globalPropTypes = {
     ]),
     placeholder: PropTypes.string,
     name: PropTypes.string,
+    min: PropTypes.number,
+    max: PropTypes.number,
     
     // React Props
     children: PropTypes.oneOfType([

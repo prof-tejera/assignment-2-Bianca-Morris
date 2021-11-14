@@ -20,11 +20,23 @@ const StyledInput = styled.input`
 `;
 
 const Input = (props) => {
-    const { type, name, onChange, disabled, placeholder, value } = props;
+    const { type, name, onChange, disabled, placeholder, value, min, max } = props;
+
+    // Adds some additional validation for typed numbers
+    const validateChange = (e) => {
+        let { target: { value, min, max } = {} } = e || {};
+        if (type === "number") { // ensure typed numerical values don't overflow min/max or include decimals
+            value = (Math.max(Number(min), Math.min(Number(max), Number(value)))).toFixed(0);
+            onChange({target: { value }});
+        } else {
+            onChange(value);
+        }
+    };
+
     return (
         <React.Fragment>
             <HiddenLabel {...{ name }} ></HiddenLabel>
-            <StyledInput {...{ name, type, onChange, disabled, placeholder, value }} />
+            <StyledInput onChange={validateChange} {...{ name, type, disabled, placeholder, value, min, max }} />
         </React.Fragment>
     );
 }
@@ -34,7 +46,9 @@ Input.propTypes = {
     disabled: globalPropTypes.disabled,
     placeholder: globalPropTypes.placeholder,
     type: globalPropTypes.inputType,
-    value: globalPropTypes.inputValue
+    value: globalPropTypes.inputValue,
+    min: globalPropTypes.min,
+    max: globalPropTypes.max,
 }
 Input.defaultProps = {
     type: "text",
