@@ -46,16 +46,16 @@ const Button = (props) => {
     switch(variant) {
         case "secondary":
             return (
-                <ButtonSecondary {...{ passProps }}>{children}</ButtonSecondary>
+                <ButtonSecondary {...passProps}>{children}</ButtonSecondary>
             );
         case "danger": 
             return (
-                <ButtonDanger {...{ passProps }}>{children}</ButtonDanger>
+                <ButtonDanger {...passProps}>{children}</ButtonDanger>
             );
         case "primary":
         default: 
             return (
-                <ButtonPrimary {...{ passProps }}>{children}</ButtonPrimary>
+                <ButtonPrimary {...passProps}>{children}</ButtonPrimary>
             );
     }
 }
