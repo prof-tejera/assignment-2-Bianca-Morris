@@ -25,3 +25,19 @@ export const transformTimeUnitToDisplayString = (number, timeUnit) =>  {
     }
     return numString;
   }
+
+export const convertMillisecToSec = (ms) => {
+  return ms / 1000;
+}
+
+export const convertSecondsToHours = (sec) => {
+  const hours = Math.floor(sec / (60 * 60));
+  const leftovers = sec - (hours * 60 * 60);
+  return [hours, leftovers];
+}
+
+export const convertSecondsToMinutes = (sec) => {
+  const mins = Math.floor(sec / 60);
+  const leftovers = sec - (mins * 60);
+  return [mins, leftovers];
+}

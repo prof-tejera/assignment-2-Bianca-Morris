@@ -7,18 +7,27 @@ import { useInterval } from "../../utils/customReactHooks";
 import { H1 } from "../../utils/tokensAndTheme";
 import Button, { ButtonSpacer } from "../generic/Button";
 import DisplayTime from "../generic/DisplayTime";
+import { convertMillisecToSec, convertSecondsToHours, convertSecondsToMinutes } from "../../utils/helpers";
 
 const Stopwatch = (props) =>  {
   const { handleSetHours, handleSetMinutes, handleSetSeconds, handleStop, handleStart, handleReset } = props;
-  const { hours, setHours, minutes, setMinutes, seconds, setSeconds, isTimerRunning } = useContext(AppContext);
+  const { hours, setHours, minutes, setMinutes, seconds, setSeconds, isTimerRunning, startDate } = useContext(AppContext);
   
   function stopwatch() {
-    if (typeof seconds === "string" && !seconds) { // empty string
-      setSeconds(1);
+    const msElapsed = new Date(Date.now()).getTime() - startDate.getTime();
+    const secondsElapsed = convertMillisecToSec(msElapsed);
+
+    if (secondsElapsed < 60) {
+      setSeconds(Math.floor(secondsElapsed));
     } else {
-      setSeconds(1 + parseInt(seconds));
+      const [hoursElapsed, hourRemainder] = convertSecondsToHours(secondsElapsed);
+      const [minutesElapsed, minuteRemainder] = convertSecondsToMinutes(hourRemainder); 
+      
+      // Update state with seconds, minutes and hours elapsed since start
+      setHours(Math.floor(hoursElapsed));
+      setMinutes(Math.floor(minutesElapsed));
+      setSeconds(Math.floor(minuteRemainder));
     }
-    
   }
 
   useInterval(() => {

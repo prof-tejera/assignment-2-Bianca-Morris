@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 export const AppContext = React.createContext({});
 
 const AppProvider = ({ children }) => {
-  const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [hours, setHours] = useState("");
   const [minutes, setMinutes] = useState("");
   const [seconds, setSeconds] = useState("");
@@ -15,6 +16,7 @@ const AppProvider = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
+        startDate,
         endDate,
         hours,
         minutes,
@@ -22,6 +24,7 @@ const AppProvider = ({ children }) => {
         numRounds,
         currRound,
         isTimerRunning,
+        setStartDate,
         setEndDate,
         setHours,
         setMinutes,
