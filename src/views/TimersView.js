@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 
 import Panel from "../components/generic/Panel";
@@ -6,6 +6,7 @@ import Stopwatch from "../components/timers/Stopwatch";
 import Countdown from "../components/timers/Countdown";
 import XY from "../components/timers/XY";
 import Tabata from "../components/timers/Tabata";
+import { AppContext } from "../context/AppProvider";
 
 import { themeColors } from "../utils/tokensAndTheme";
 
@@ -50,14 +51,42 @@ const ActiveTimerTitle = styled(TimerTitle)`
 `;
 
 function App() {
-  const timers = [
-    { title: "Stopwatch", C: <Stopwatch /> },
-    { title: "Countdown", C: <Countdown /> },
-    { title: "XY", C: <XY /> },
-    { title: "Tabata", C: <Tabata /> },
-  ];
-
   const [ timerIdx, setTimerIdx ] = useState(0);
+  const { setHours, setMinutes, setSeconds, setTimerRunning } = useContext(AppContext);
+
+  // Event-handler versions of the various setters for passing into timers
+  const handleSetHours = (e) => {
+    setHours(e.target.value);
+  }
+
+  const handleSetMinutes = (e) => {
+    setMinutes(e.target.value);
+  }
+
+  const handleSetSeconds = (e) => {
+    setSeconds(e.target.value);
+  }
+
+  const handleReset = (e) => {
+    setHours("");
+    setMinutes("");
+    setSeconds("");
+  }
+  
+  const handleStart = (e) => {
+    setTimerRunning(true);
+  }
+
+  const handleStop = (e) => {
+    setTimerRunning(false);
+  }
+
+  const timers = [
+    { title: "Stopwatch", C: <Stopwatch {...{ handleSetHours, handleSetMinutes, handleSetSeconds, handleReset, handleStart, handleStop }}/> },
+    { title: "Countdown", C: <Countdown {...{ handleSetHours, handleSetMinutes, handleSetSeconds, handleReset, handleStart, handleStop }}/> },
+    { title: "XY", C: <XY {...{ handleSetHours, handleSetMinutes, handleSetSeconds, handleReset, handleStart, handleStop}} /> },
+    { title: "Tabata", C: <Tabata {...{ handleSetHours, handleSetMinutes, handleSetSeconds, handleReset, handleStart, handleStop }}/> },
+  ];
 
   return (
     <Timers>
