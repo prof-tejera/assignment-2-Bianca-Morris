@@ -4,9 +4,12 @@ export const AppContext = React.createContext({});
 
 const AppProvider = ({ children }) => {
   const [endDate, setEndDate] = useState(new Date());
-  const [hours, setHours] = useState(null);
-  const [minutes, setMinutes] = useState(null);
-  const [seconds, setSeconds] = useState(null);
+  const [hours, setHours] = useState("");
+  const [minutes, setMinutes] = useState("");
+  const [seconds, setSeconds] = useState("");
+  const [numRounds, setNumRounds] = useState(1);
+  const [currRound, setCurrRound] = useState(0);
+  const [isTimerRunning, setTimerRunning] = useState(false);
 
 
   return (
@@ -16,10 +19,16 @@ const AppProvider = ({ children }) => {
         hours,
         minutes,
         seconds,
+        numRounds,
+        currRound,
+        isTimerRunning,
         setEndDate,
         setHours,
         setMinutes,
-        setSeconds
+        setSeconds,
+        setNumRounds,
+        setCurrRound,
+        setTimerRunning
       }}
     >
       {children}

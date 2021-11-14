@@ -20,8 +20,8 @@ export const globalPropTypes = {
     ]),
     placeholder: PropTypes.string,
     name: PropTypes.string,
-    min: PropTypes.number,
-    max: PropTypes.number,
+    min: PropTypes.string,
+    max: PropTypes.string,
     
     // React Props
     children: PropTypes.oneOfType([
@@ -34,9 +34,18 @@ export const globalPropTypes = {
     onChange: PropTypes.func,
 
     // Timer-Specific Props
-    hours: PropTypes.number,
-    minutes: PropTypes.number,
-    seconds: PropTypes.number,
+    hours: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.oneOf([""])
+    ]),
+    minutes: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.oneOf([""])
+    ]),
+    seconds: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.oneOf([""])
+    ]),
     totalRounds: PropTypes.number,
     currRound: PropTypes.number,
     isRest: PropTypes.bool,
