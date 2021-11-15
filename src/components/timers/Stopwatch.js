@@ -15,7 +15,7 @@ const Stopwatch = (props) =>  {
   }, isTimerRunning ? 1000 : null);
 
   // On mount, ensure timer is set to increment/tick up from 00:00:00
-  useEffect(() => { setIsIncrementing(true); console.log("first render!")}, [setIsIncrementing]);
+  useEffect(() => { setIsIncrementing(true);}, [setIsIncrementing]);
 
   return (
     <React.Fragment>

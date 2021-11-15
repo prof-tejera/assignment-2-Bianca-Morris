@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { themeColors } from "../../utils/tokensAndTheme";
 import { globalPropTypes } from "../../utils/globalPropTypes";
+import { transformTimeUnitToDisplayString } from "../../utils/helpers";
 
 const HiddenLabel = styled.label`display:none;`;
 
@@ -27,7 +28,7 @@ const Input = (props) => {
         let { target: { value: eventVal, min, max } = {} } = e || {};
         if (type === "number") { // ensure typed numerical values don't overflow min/max or include decimals
             const adjustedValue = (Math.max(Number(min), Math.min(Number(max), Number(eventVal)))).toFixed(0);
-            e.target["value"] = adjustedValue;
+            e.target["value"] = transformTimeUnitToDisplayString(adjustedValue);
             onChange(e);
         } else {
             onChange(eventVal);

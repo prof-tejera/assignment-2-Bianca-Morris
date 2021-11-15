@@ -4,15 +4,15 @@ export const AppContext = React.createContext({});
 
 const AppProvider = ({ children }) => {
   const [ timerIdx, setTimerIdx ] = useState(0); // Timer array specified in TimersView.js
-  const [startTime, setStartTime] = useState(["", "", ""]); // [hours/minutes/seconds]
-  const [endTime, setendTime] = useState(["", "", ""]);
-  const [hours, setHours] = useState("");
-  const [minutes, setMinutes] = useState("");
-  const [seconds, setSeconds] = useState("");
-  const [numRounds, setNumRounds] = useState(1);
-  const [currRound, setCurrRound] = useState(0);
-  const [isTimerRunning, setTimerRunning] = useState(false);
-  const [isIncrementing, setIsIncrementing] = useState(true);
+  const [ startTime, setStartTime ] = useState(["", "", ""]); // [hours/minutes/seconds]
+  const [ endTime, setendTime ] = useState(["", "", ""]);
+  const [ hours, setHours ] = useState("");
+  const [ minutes, setMinutes ] = useState("");
+  const [ seconds, setSeconds ] = useState("");
+  const [ numRounds, setNumRounds ] = useState(1);
+  const [ currRound, setCurrRound ] = useState(0);
+  const [ isTimerRunning, setTimerRunning ] = useState(false);
+  const [ isIncrementing, setIsIncrementing ] = useState(true);
 
   const { 0: startHours, 1: startMinutes, 2: startSeconds } = startTime || [];
 
@@ -29,11 +29,17 @@ const AppProvider = ({ children }) => {
     }
   }
 
+  const timerComplete = () => {
+    // Add music triggers or something here
+    alert('Timer complete!');
+  }
+
   /* Counting down the seconds from start time to 00:00:00 */
   const tickDown = () => {
     if (!hours && !minutes && !seconds) {
       // complete! needs a special method for this
       handleStop();
+      timerComplete();
     } else if (!minutes && !seconds) {
       setHours(hours - 1);
       setMinutes(59);

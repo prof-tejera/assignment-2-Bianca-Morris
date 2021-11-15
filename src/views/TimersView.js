@@ -52,7 +52,6 @@ const ActiveTimerTitle = styled(TimerTitle)`
 
 function App() {
   const { timerIdx, setTimerIdx, handleStop } = useContext(AppContext);
-  console.log("App timerIdx", timerIdx);
 
   const timers = [
     { title: "Stopwatch", C: <Stopwatch /> },
