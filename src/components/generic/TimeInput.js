@@ -20,12 +20,12 @@ const TimeInputWrapper = styled.div`
 `;
 
 const TimeInput = (props) => {
-    const { disabled, hoursVal, minutesVal, secondsVal, onChangeHours, onChangeMinutes, onChangeSeconds } = props;
+    const { disabled, hoursVal, minutesVal, secondsVal, onChange } = props;
     return (
         <TimeInputWrapper>
-            <Input placeholder="HH" value={hoursVal} type="number" name="hourInput" onChange={onChangeHours} min="0" max="24" {...{ disabled }} />
-            <Input placeholder="MM" value={minutesVal} type="number" name="minuteInput" onChange={onChangeMinutes} min="0" max="59" {...{ disabled }} />
-            <Input placeholder="SS" value={secondsVal} type="number" name="secondInput" onChange={onChangeSeconds} min="0" max="59" {...{ disabled }} />
+            <Input placeholder="HH" value={hoursVal} type="number" name="hourInput" min="0" max="24" {...{ disabled, onChange }} />
+            <Input placeholder="MM" value={minutesVal} type="number" name="minuteInput" min="0" max="59" {...{ disabled, onChange }} />
+            <Input placeholder="SS" value={secondsVal} type="number" name="secondInput" min="0" max="59" {...{ disabled, onChange }} />
         </TimeInputWrapper>
     )
 }
@@ -33,9 +33,7 @@ TimeInput.propTypes = {
     hoursVal: globalPropTypes.hours,
     minutesVal: globalPropTypes.minutes,
     secondsVal: globalPropTypes.seconds,
-    onChangeHours: globalPropTypes.onChange.isRequired,
-    onChangeMinutes: globalPropTypes.onChange.isRequired,
-    onChangeSeconds: globalPropTypes.onChange.isRequired,
+    onChange: globalPropTypes.onChange.isRequired,
     disabled: globalPropTypes.disabled
 }
 TimeInput.defaultProps = {

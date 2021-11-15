@@ -24,12 +24,13 @@ const Input = (props) => {
 
     // Adds some additional validation for typed numbers
     const validateChange = (e) => {
-        let { target: { value, min, max } = {} } = e || {};
+        let { target: { value: eventVal, min, max } = {} } = e || {};
         if (type === "number") { // ensure typed numerical values don't overflow min/max or include decimals
-            value = (Math.max(Number(min), Math.min(Number(max), Number(value)))).toFixed(0);
-            onChange({target: { value }});
+            const adjustedValue = (Math.max(Number(min), Math.min(Number(max), Number(eventVal)))).toFixed(0);
+            e.target["value"] = adjustedValue;
+            onChange(e);
         } else {
-            onChange(value);
+            onChange(eventVal);
         }
     };
 

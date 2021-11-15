@@ -12,8 +12,38 @@ import TimeInput, { TimeInputLabel } from "../generic/TimeInput";
 
 
 const Countdown = (props) => {
-  const { handleSetHours, handleSetMinutes, handleSetSeconds, handleStop, handleStart, handleReset } = props;
-  const { hours, setHours, minutes, setMinutes, seconds, setSeconds, isTimerRunning } = useContext(AppContext);
+  const { handleStop, handleStart, handleReset } = props;
+  const {
+    hours,
+    setHours,
+    minutes,
+    setMinutes,
+    seconds,
+    setSeconds,
+    isTimerRunning,
+    startTime,
+    setStartTime
+  } = useContext(AppContext);
+
+  const { 0: startHours, 1: startMinutes, 2: startSeconds } = startTime || [];
+
+  const handleSetStartTime = (e) => {
+    const { target: { value, name } = {} } = e || {};
+    const valInt = parseInt(value || 0);
+    switch(name) {
+      case "hourInput":
+        setStartTime([valInt, startMinutes, startSeconds]);
+        break;
+      case "minuteInput":
+        setStartTime([startHours, valInt, startSeconds]);
+        break;
+      case "secondInput":
+        setStartTime([startHours, startMinutes, valInt]);
+        break;
+      default:
+        throw new Error("Attempting to handle time change for unrecognized input.");
+    }   
+  }
 
   function countdown() {
     if (!hours && !minutes && !seconds) {
@@ -40,7 +70,7 @@ const Countdown = (props) => {
       <DisplayTime {...{ hours, minutes, seconds }} />
       <TimeInputLabel>
         Start Time:
-        <TimeInput disabled={isTimerRunning} hoursVal={hours} minutesVal={minutes} secondsVal={seconds} onChangeHours={handleSetHours} onChangeMinutes={handleSetMinutes} onChangeSeconds={handleSetSeconds} />
+        <TimeInput disabled={isTimerRunning} hoursVal={startHours} minutesVal={startMinutes} secondsVal={startSeconds} onChange={handleSetStartTime} />
       </TimeInputLabel>
       <ButtonSpacer>
         { isTimerRunning ?
@@ -54,9 +84,6 @@ const Countdown = (props) => {
 }
 Countdown.propTypes = {
   onStart: PropTypes.func,
-  handleSetHours: PropTypes.func,
-  handleSetMinutes: PropTypes.func,
-  handleSetSeconds: PropTypes.func,
   handleStop: PropTypes.func,
   handleStart: PropTypes.func,
   handleReset: PropTypes.func,
