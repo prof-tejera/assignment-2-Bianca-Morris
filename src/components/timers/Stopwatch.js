@@ -7,26 +7,20 @@ import { useInterval } from "../../utils/customReactHooks";
 import { H1 } from "../../utils/tokensAndTheme";
 import Button, { ButtonSpacer } from "../generic/Button";
 import DisplayTime from "../generic/DisplayTime";
-import { convertMillisecToSec, convertSecondsToHours, convertSecondsToMinutes } from "../../utils/helpers";
 
 const Stopwatch = (props) =>  {
-  const { handleSetHours, handleSetMinutes, handleSetSeconds, handleStop, handleStart, handleReset } = props;
-  const { hours, setHours, minutes, setMinutes, seconds, setSeconds, isTimerRunning, startDate } = useContext(AppContext);
+  const { handleStop, handleStart, handleReset } = props;
+  const { hours, setHours, minutes, setMinutes, seconds, setSeconds, isTimerRunning } = useContext(AppContext);
   
   function stopwatch() {
-    const msElapsed = new Date(Date.now()).getTime() - startDate.getTime();
-    const secondsElapsed = convertMillisecToSec(msElapsed);
-
-    if (secondsElapsed < 60) {
-      setSeconds(Math.floor(secondsElapsed));
+    if (seconds === 59) {
+      setSeconds(0);
+      setMinutes(minutes + 1);
+    } else if (minutes === 59) {
+      setMinutes(0);
+      setHours(hours + 1);
     } else {
-      const [hoursElapsed, hourRemainder] = convertSecondsToHours(secondsElapsed);
-      const [minutesElapsed, minuteRemainder] = convertSecondsToMinutes(hourRemainder); 
-      
-      // Update state with seconds, minutes and hours elapsed since start
-      setHours(Math.floor(hoursElapsed));
-      setMinutes(Math.floor(minutesElapsed));
-      setSeconds(Math.floor(minuteRemainder));
+      setSeconds(seconds + 1);
     }
   }
 
@@ -37,7 +31,7 @@ const Stopwatch = (props) =>  {
   return (
     <React.Fragment>
       <H1>Stopwatch</H1>
-      <DisplayTime {...{ hours, minutes, seconds}} />
+      <DisplayTime {...{ hours, minutes, seconds }} />
       <ButtonSpacer>
         { isTimerRunning ?
           <Button onClick={handleStop} variant="danger">STOP</Button>:

@@ -14,14 +14,20 @@ import TimeInput, { TimeInputLabel } from "../generic/TimeInput";
 const Countdown = (props) => {
   const { handleSetHours, handleSetMinutes, handleSetSeconds, handleStop, handleStart, handleReset } = props;
   const { hours, setHours, minutes, setMinutes, seconds, setSeconds, isTimerRunning } = useContext(AppContext);
-  
+
   function countdown() {
-    if (seconds) {
-      setSeconds(1 + parseInt(seconds));
+    if (!hours && !minutes && !seconds) {
+      handleStop();
+    } else if (!minutes && !seconds) {
+      setHours(hours - 1);
+      setMinutes(59);
+      setSeconds(59);
+    } else if (!seconds) {
+      setMinutes(minutes - 1);
+      setSeconds(59);
     } else {
-      setSeconds(1);
+      setSeconds(seconds - 1);
     }
-    
   }
 
   useInterval(() => {
@@ -31,7 +37,7 @@ const Countdown = (props) => {
   return (
     <React.Fragment>
       <H1>Countdown</H1>
-      <DisplayTime {...{ hours, minutes, seconds}} />
+      <DisplayTime {...{ hours, minutes, seconds }} />
       <TimeInputLabel>
         Start Time:
         <TimeInput disabled={isTimerRunning} hoursVal={hours} minutesVal={minutes} secondsVal={seconds} onChangeHours={handleSetHours} onChangeMinutes={handleSetMinutes} onChangeSeconds={handleSetSeconds} />

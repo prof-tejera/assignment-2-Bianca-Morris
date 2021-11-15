@@ -52,19 +52,19 @@ const ActiveTimerTitle = styled(TimerTitle)`
 
 function App() {
   const [ timerIdx, setTimerIdx ] = useState(0);
-  const { setHours, setMinutes, setSeconds, setTimerRunning, startDate, setStartDate } = useContext(AppContext);
+  const { setHours, setMinutes, setSeconds, setTimerRunning } = useContext(AppContext);
 
   // Event-handler versions of the various setters for passing into timers
   const handleSetHours = (e) => {
-    setHours(e.target.value);
+    setHours(parseInt(e.target.value || 0));
   }
 
   const handleSetMinutes = (e) => {
-    setMinutes(e.target.value);
+    setMinutes(parseInt(e.target.value || 0));
   }
 
   const handleSetSeconds = (e) => {
-    setSeconds(e.target.value);
+    setSeconds(parseInt(e.target.value || 0));
   }
 
   const handleReset = (e) => {
@@ -74,8 +74,6 @@ function App() {
   }
   
   const handleStart = (e) => {
-    const timeNow = new Date(Date.now());
-    setStartDate(timeNow);
     setTimerRunning(true);
   }
 
