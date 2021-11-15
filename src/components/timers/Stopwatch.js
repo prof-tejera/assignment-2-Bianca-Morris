@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import PropTypes from "prop-types";
+import React, { useContext, useEffect } from "react";
 
 import { AppContext } from "../../context/AppProvider";
 import { useInterval } from "../../utils/customReactHooks";
@@ -9,24 +8,16 @@ import Button, { ButtonSpacer } from "../generic/Button";
 import DisplayTime from "../generic/DisplayTime";
 
 const Stopwatch = (props) =>  {
-  const { handleStop, handleStart, handleReset } = props;
-  const { hours, setHours, minutes, setMinutes, seconds, setSeconds, isTimerRunning } = useContext(AppContext);
+  const { hours, minutes, seconds, isTimerRunning, tickUp, handleStop, handleStart, handleReset, setIsIncrementing } = useContext(AppContext);
   
-  function stopwatch() {
-    if (seconds === 59) {
-      setSeconds(0);
-      setMinutes(minutes + 1);
-    } else if (minutes === 59) {
-      setMinutes(0);
-      setHours(hours + 1);
-    } else {
-      setSeconds(seconds + 1);
-    }
-  }
-
   useInterval(() => {
-    stopwatch();
+    tickUp();
   }, isTimerRunning ? 1000 : null);
+
+  // On mount, ensure timer is set to increment/tick up from 00:00:00
+  useEffect(() => {
+    setIsIncrementing(true);
+  }, [setIsIncrementing])
 
   return (
     <React.Fragment>
@@ -41,14 +32,6 @@ const Stopwatch = (props) =>  {
       </ButtonSpacer>
     </React.Fragment>
   );
-}
-Stopwatch.propTypes = {
-  handleSetHours: PropTypes.func,
-  handleSetMinutes: PropTypes.func,
-  handleSetSeconds: PropTypes.func,
-  handleStop: PropTypes.func,
-  handleStart: PropTypes.func,
-  handleReset: PropTypes.func,
 }
 
 export default Stopwatch;

@@ -51,41 +51,13 @@ const ActiveTimerTitle = styled(TimerTitle)`
 `;
 
 function App() {
-  const [ timerIdx, setTimerIdx ] = useState(0);
-  const { setHours, setMinutes, setSeconds, setTimerRunning } = useContext(AppContext);
-
-  // Event-handler versions of the various setters for passing into timers
-  const handleSetHours = (e) => {
-    setHours(parseInt(e.target.value || 0));
-  }
-
-  const handleSetMinutes = (e) => {
-    setMinutes(parseInt(e.target.value || 0));
-  }
-
-  const handleSetSeconds = (e) => {
-    setSeconds(parseInt(e.target.value || 0));
-  }
-
-  const handleReset = (e) => {
-    setHours("");
-    setMinutes("");
-    setSeconds("");
-  }
-  
-  const handleStart = (e) => {
-    setTimerRunning(true);
-  }
-
-  const handleStop = (e) => {
-    setTimerRunning(false);
-  }
+  const { timerIdx, setTimerIdx } = useContext(AppContext);
 
   const timers = [
-    { title: "Stopwatch", C: <Stopwatch {...{ handleSetHours, handleSetMinutes, handleSetSeconds, handleReset, handleStart, handleStop }}/> },
-    { title: "Countdown", C: <Countdown {...{ handleSetHours, handleSetMinutes, handleSetSeconds, handleReset, handleStart, handleStop }}/> },
-    { title: "XY", C: <XY {...{ handleSetHours, handleSetMinutes, handleSetSeconds, handleReset, handleStart, handleStop}} /> },
-    { title: "Tabata", C: <Tabata {...{ handleSetHours, handleSetMinutes, handleSetSeconds, handleReset, handleStart, handleStop }}/> },
+    { title: "Stopwatch", C: <Stopwatch /> },
+    { title: "Countdown", C: <Countdown /> },
+    { title: "XY", C: <XY /> },
+    { title: "Tabata", C: <Tabata /> },
   ];
 
   return (
