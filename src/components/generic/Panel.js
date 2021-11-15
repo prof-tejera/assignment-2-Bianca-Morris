@@ -4,7 +4,7 @@ import { themeColors } from "./../../utils/tokensAndTheme";
 import { globalPropTypes } from "../../utils/globalPropTypes";
 
 const ImageBackgroundPane = styled.div`
-    background: linear-gradient(120deg, ${themeColors.timerBgGradient1}, ${themeColors.timerBgGradient2}), url('/assignment-1-Bianca-Morris/maarten-van-den-heuvel-unsplash-sm.jpg');
+    background: linear-gradient(120deg, ${themeColors.timerBgGradient1}, ${themeColors.timerBgGradient2}), url('/assignment-2-Bianca-Morris/maarten-van-den-heuvel-unsplash-sm.jpg');
     height: 390px;
     width: 550px;
     border-radius: 0 20px 20px 0;
