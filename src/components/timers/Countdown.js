@@ -32,9 +32,7 @@ const Countdown = (props) => {
   }, isTimerRunning ? 1000 : null);
 
   // On mount, ensure timer is set to decrement/tick down from startTime
-  useEffect(() => {
-    setIsIncrementing(false);
-  }, [setIsIncrementing])
+  useEffect(() => { setIsIncrementing(false); }, [setIsIncrementing]);
 
   return (
     <React.Fragment>

@@ -20,12 +20,12 @@ const AppProvider = ({ children }) => {
   const tickUp = () => {
     if (seconds === 59) {
       setSeconds(0);
-      setMinutes(minutes + 1);
+      setMinutes((minutes || 0) + 1);
     } else if (minutes === 59) {
       setMinutes(0);
-      setHours(hours + 1);
+      setHours((hours || 0) + 1);
     } else {
-      setSeconds(seconds + 1);
+      setSeconds((seconds || 0) + 1);
     }
   }
 
@@ -81,23 +81,24 @@ const AppProvider = ({ children }) => {
   }
 
   const handleReset = (e) => {
+    handleStop();
     setHours("");
     setMinutes("");
     setSeconds("");
   }
 
-  // Event-handler versions of the various setters for passing into timers
-  const handleSetHours = (e) => {
-    setHours(parseInt(e.target.value || 0));
-  }
+  // // Event-handler versions of the various setters for passing into timers
+  // const handleSetHours = (e) => {
+  //   setHours(parseInt(e.target.value || 0));
+  // }
 
-  const handleSetMinutes = (e) => {
-    setMinutes(parseInt(e.target.value || 0));
-  }
+  // const handleSetMinutes = (e) => {
+  //   setMinutes(parseInt(e.target.value || 0));
+  // }
 
-  const handleSetSeconds = (e) => {
-    setSeconds(parseInt(e.target.value || 0));
-  }
+  // const handleSetSeconds = (e) => {
+  //   setSeconds(parseInt(e.target.value || 0));
+  // }
   
 
 

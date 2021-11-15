@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 
 import Panel from "../components/generic/Panel";
@@ -51,7 +51,8 @@ const ActiveTimerTitle = styled(TimerTitle)`
 `;
 
 function App() {
-  const { timerIdx, setTimerIdx } = useContext(AppContext);
+  const { timerIdx, setTimerIdx, handleStop } = useContext(AppContext);
+  console.log("App timerIdx", timerIdx);
 
   const timers = [
     { title: "Stopwatch", C: <Stopwatch /> },
@@ -60,14 +61,19 @@ function App() {
     { title: "Tabata", C: <Tabata /> },
   ];
 
+  const onTimerSwitch = (e, idx) => {
+    handleStop(); // ensure any timers currently running are stopped
+    setTimerIdx(idx);
+  };
+
   return (
     <Timers>
       <TimerSelector >
       {timers.map((timer, idx) => {
         if (timerIdx === idx) {
-          return <ActiveTimerTitle key={timer.title} onClick={() => setTimerIdx(idx)}>{timer.title}</ActiveTimerTitle>;
+          return <ActiveTimerTitle key={timer.title} onClick={(e) => onTimerSwitch(e, idx)}>{timer.title}</ActiveTimerTitle>;
         }
-        return <TimerTitle key={timer.title} onClick={() => setTimerIdx(idx)}>{timer.title}</TimerTitle>;
+        return <TimerTitle key={timer.title} onClick={(e) => onTimerSwitch(e, idx)}>{timer.title}</TimerTitle>;
       })}
       </TimerSelector>
       <Panel>
