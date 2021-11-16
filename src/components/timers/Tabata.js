@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+
+import { AppContext } from "../../context/AppProvider";
+import { useInterval } from "../../utils/customReactHooks";
 
 import { H1 } from "../../utils/tokensAndTheme";
 import Button, { ButtonSpacer } from "../generic/Button";
@@ -14,27 +17,61 @@ const LessMarginH1 = styled(H1)`
 `;
 
 const Tabata = (props) => {
-  const { onInputRestTime, onInputWorkTime, onInputRounds, onStart, onReset } = props;
+  const {
+    hours,
+    minutes,
+    seconds,
+    isTimerRunning,
+    isWorkTime,
+    workTime,
+    handleSetWorkTime,
+    restTime,
+    handleSetRestTime,
+    tickDown,
+    handleStop,
+    handleStart,
+    handleReset,
+    setIsIncrementing,
+    numRounds,
+    handleChangeNumRounds,
+    currRound,
+    roundComplete
+  } = useContext(AppContext);
+
+  const { 0: workHours, 1: workMinutes, 2: workSeconds } = workTime || [];
+  const { 0: restHours, 1: restMinutes, 2: restSeconds } = restTime || [];
+
+  useInterval(() => {
+    tickDown(roundComplete);
+  }, isTimerRunning ? 1000 : null);
+
+  // On mount, ensure timer is set to decrement/tick down from startTime
+  useEffect(() => { setIsIncrementing(false); }, [setIsIncrementing]);
+
+
   return (
     <React.Fragment>
       <LessMarginH1>Tabata</LessMarginH1>
-      <DisplayRounds currRound={0} totalRounds={1}/>
-      <DisplayTime />
+      <DisplayRounds {...{ currRound }} totalRounds={numRounds} isRest={!isWorkTime}/>
+      <DisplayTime {...{ hours, minutes, seconds }}/>
       <TimeInputLabel>
         Work Time:
-        <TimeInput onChange={onInputWorkTime} />
+        <TimeInput onChange={handleSetWorkTime} hoursVal={workHours} minutesVal={workMinutes} secondsVal={workSeconds} />
       </TimeInputLabel>
       <TimeInputLabel>
         Rest Time:
-        <TimeInput onChange={onInputRestTime}/>
+        <TimeInput onChange={handleSetRestTime} hoursVal={restHours} minutesVal={restMinutes} secondsVal={restSeconds}/>
       </TimeInputLabel>
       <RoundsLabel>
         # of Rounds:
-        <Input name="numRoundsTabata" placeholder="1" onChange={onInputRounds}/>
+        <Input name="numRoundsTabata" value={numRounds} placeholder="1" onChange={handleChangeNumRounds}/>
       </RoundsLabel>
       <ButtonSpacer>
-        <Button onClick={onStart}>START</Button>
-        <Button onClick={onReset} variant="secondary">RESET</Button>
+      { isTimerRunning ?
+          <Button onClick={handleStop} variant="danger">STOP</Button>:
+          <Button onClick={handleStart} disabled={numRounds <= 0}>START</Button>
+        }
+        <Button onClick={handleReset} variant="secondary">RESET</Button>
       </ButtonSpacer>
     </React.Fragment>
   );
