@@ -67,17 +67,29 @@ const AppProvider = ({ children }) => {
   }
 
   const handleSetStartTime = (e) => {
+    handleSetTimeInput(e, setStartTime);
+  }
+
+  const handleSetWorkTime = (e) => {
+    handleSetTimeInput(e, setWorkTime);
+  }
+
+  const handleSetRestTime = (e) => {
+    handleSetTimeInput(e, setRestTime);
+  }
+
+  const handleSetTimeInput = (e, callback) => {
     const { target: { value, name } = {} } = e || {};
     const valInt = parseInt(value || 0);
     switch(name) {
       case "hourInput":
-        setStartTime([valInt, startMinutes, startSeconds]);
+        callback([valInt, startMinutes, startSeconds]);
         break;
       case "minuteInput":
-        setStartTime([startHours, valInt, startSeconds]);
+        callback([startHours, valInt, startSeconds]);
         break;
       case "secondInput":
-        setStartTime([startHours, startMinutes, valInt]);
+        callback([startHours, startMinutes, valInt]);
         break;
       default:
         throw new Error("Attempting to handle time change for unrecognized input.");
@@ -147,6 +159,8 @@ const AppProvider = ({ children }) => {
         setNumRounds,
         setCurrRound,
         setTimerRunning,
+        handleSetWorkTime,
+        handleSetRestTime,
         handleSetStartTime,
         handleStop,
         handleStart,
