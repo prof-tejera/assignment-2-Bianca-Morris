@@ -5,14 +5,17 @@ export const AppContext = React.createContext({});
 const AppProvider = ({ children }) => {
   const [ timerIdx, setTimerIdx ] = useState(0); // Timer array specified in TimersView.js
   const [ startTime, setStartTime ] = useState(["", "", ""]); // [hours/minutes/seconds]
-  const [ endTime, setendTime ] = useState(["", "", ""]);
+  const [ endTime, setEndTime ] = useState(["", "", ""]);
+  const [ workTime, setWorkTime ] = useState(["", "", ""]);
+  const [ restTime, setRestTime ] = useState(["", "", ""]);
   const [ hours, setHours ] = useState("");
   const [ minutes, setMinutes ] = useState("");
   const [ seconds, setSeconds ] = useState("");
   const [ numRounds, setNumRounds ] = useState(1);
   const [ currRound, setCurrRound ] = useState(0);
   const [ isTimerRunning, setTimerRunning ] = useState(false);
-  const [ isIncrementing, setIsIncrementing ] = useState(true);
+  const [ isIncrementing, setIsIncrementing ] = useState(true); // if False, is decrementing
+  const [ isWorkTime, setIsWorkTime ] = useState(true); // if False, is rest time
 
   const { 0: startHours, 1: startMinutes, 2: startSeconds } = startTime || [];
 
@@ -70,6 +73,11 @@ const AppProvider = ({ children }) => {
     }   
   }
 
+  const handleChangeNumRounds = (num) => {
+    const numInt = parseInt(num || 0);
+    setNumRounds(numInt);
+  }
+
   const handleStop = (e) => {
     setTimerRunning(false);
   }
@@ -120,7 +128,7 @@ const AppProvider = ({ children }) => {
         currRound,
         isTimerRunning,
         setStartTime,
-        setendTime,
+        setEndTime,
         setHours,
         setMinutes,
         setSeconds,
@@ -136,7 +144,8 @@ const AppProvider = ({ children }) => {
         isIncrementing,
         setIsIncrementing,
         timerIdx,
-        setTimerIdx
+        setTimerIdx,
+        handleChangeNumRounds
       }}
     >
       {children}

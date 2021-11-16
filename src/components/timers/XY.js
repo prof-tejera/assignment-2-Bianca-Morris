@@ -1,5 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { useContext, useEffect } from "react";
+
+import { AppContext } from "../../context/AppProvider";
+import { useInterval } from "../../utils/customReactHooks";
 
 import { H1 } from "../../utils/tokensAndTheme";
 import Button, { ButtonSpacer } from "../generic/Button";
@@ -10,32 +12,54 @@ import Input from "../generic/Input";
 
 
 const XY = (props) => {
-  const { onStart, onReset, onInputStartTime, onInputRounds } = props;
+  const {
+    hours,
+    minutes,
+    seconds,
+    isTimerRunning,
+    startTime,
+    handleSetStartTime,
+    tickDown,
+    handleStop,
+    handleStart,
+    handleReset,
+    setIsIncrementing,
+    numRounds,
+    handleChangeNumRounds,
+    currRound,
+  } = useContext(AppContext);
+
+  const { 0: startHours, 1: startMinutes, 2: startSeconds } = startTime || [];
+
+  useInterval(() => {
+    tickDown();
+  }, isTimerRunning ? 1000 : null);
+
+  // On mount, ensure timer is set to decrement/tick down from startTime
+  useEffect(() => { setIsIncrementing(false); }, [setIsIncrementing]);
+
   return (
     <React.Fragment>
       <H1>XY</H1>
-      <DisplayRounds />
-      <DisplayTime />
+      <DisplayRounds {...{ currRound }} totalRounds={numRounds}/>
+      <DisplayTime {...{ hours, minutes, seconds }} />
       <TimeInputLabel>
         Start Time:
-        <TimeInput onChange={onInputStartTime}/>
+        <TimeInput disabled={isTimerRunning} hoursVal={startHours} minutesVal={startMinutes} secondsVal={startSeconds} onChange={handleSetStartTime}/>
       </TimeInputLabel>
       <RoundsLabel>
         # of Rounds:
-        <Input name="numRoundsXY" placeholder="1" onChange={onInputRounds}/>
+        <Input name="numRoundsXY" value={numRounds} placeholder="1" onChange={handleChangeNumRounds}/>
       </RoundsLabel>
       <ButtonSpacer>
-        <Button onClick={onStart}>START</Button>
-        <Button onClick={onReset} variant="secondary">RESET</Button>
+        { isTimerRunning ?
+          <Button onClick={handleStop} variant="danger">STOP</Button>:
+          <Button onClick={handleStart} disabled={numRounds <= 0}>START</Button>
+        }
+        <Button onClick={handleReset} variant="secondary">RESET</Button>
       </ButtonSpacer>
     </React.Fragment>
   );
-}
-XY.propTypes = {
-  onInputStartTime: PropTypes.func,
-  onInputRounds: PropTypes.func,
-  onStart: PropTypes.func,
-  onReset: PropTypes.func,
 }
 
 export default XY;
