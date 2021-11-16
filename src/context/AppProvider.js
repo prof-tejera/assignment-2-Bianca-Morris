@@ -12,7 +12,7 @@ const AppProvider = ({ children }) => {
   const [ minutes, setMinutes ] = useState("");
   const [ seconds, setSeconds ] = useState("");
   const [ numRounds, setNumRounds ] = useState(1);
-  const [ currRound, setCurrRound ] = useState(0);
+  const [ currRound, setCurrRound ] = useState(1);
   const [ isTimerRunning, setTimerRunning ] = useState(false);
   const [ isIncrementing, setIsIncrementing ] = useState(true); // if False, is decrementing
   const [ isWorkTime, setIsWorkTime ] = useState(true); // if False, is rest time
@@ -33,16 +33,27 @@ const AppProvider = ({ children }) => {
   }
 
   const timerComplete = () => {
+    handleStop();
     // Add music triggers or something here
     alert('Timer complete!');
   }
 
-  /* Counting down the seconds from start time to 00:00:00 */
-  const tickDown = () => {
-    if (!hours && !minutes && !seconds) {
-      // complete! needs a special method for this
-      handleStop();
+  const roundComplete = () => {
+    if (currRound !== numRounds) {
+      // start a new round
+      setHours(startHours);
+      setMinutes(startMinutes);
+      setSeconds(startSeconds);
+      setCurrRound(currRound + 1);
+    } else {
       timerComplete();
+    }
+  }
+
+  /* Counting down the seconds from start time to 00:00:00 */
+  const tickDown = (onCompleteCallback) => {
+    if (!hours && !minutes && !seconds) {
+      onCompleteCallback();
     } else if (!minutes && !seconds) {
       setHours(hours - 1);
       setMinutes(59);
@@ -99,6 +110,7 @@ const AppProvider = ({ children }) => {
     setHours("");
     setMinutes("");
     setSeconds("");
+    setCurrRound(1);
   }
 
   // // Event-handler versions of the various setters for passing into timers
@@ -145,7 +157,9 @@ const AppProvider = ({ children }) => {
         setIsIncrementing,
         timerIdx,
         setTimerIdx,
-        handleChangeNumRounds
+        handleChangeNumRounds,
+        timerComplete,
+        roundComplete,
       }}
     >
       {children}

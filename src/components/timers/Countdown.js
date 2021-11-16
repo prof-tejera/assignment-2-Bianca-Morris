@@ -22,13 +22,14 @@ const Countdown = (props) => {
     handleStop,
     handleStart,
     handleReset,
-    setIsIncrementing
+    setIsIncrementing,
+    timerComplete
   } = useContext(AppContext);
 
   const { 0: startHours, 1: startMinutes, 2: startSeconds } = startTime || [];
 
   useInterval(() => {
-    tickDown();
+    tickDown(timerComplete);
   }, isTimerRunning ? 1000 : null);
 
   // On mount, ensure timer is set to decrement/tick down from startTime
