@@ -67,29 +67,30 @@ const AppProvider = ({ children }) => {
   }
 
   const handleSetStartTime = (e) => {
-    handleSetTimeInput(e, setStartTime);
+    handleSetTimeInput(e, setStartTime, startTime);
   }
 
   const handleSetWorkTime = (e) => {
-    handleSetTimeInput(e, setWorkTime);
+    handleSetTimeInput(e, setWorkTime, workTime);
   }
 
   const handleSetRestTime = (e) => {
-    handleSetTimeInput(e, setRestTime);
+    handleSetTimeInput(e, setRestTime, restTime);
   }
 
-  const handleSetTimeInput = (e, callback) => {
+  const handleSetTimeInput = (e, callback, time) => {
     const { target: { value, name } = {} } = e || {};
+    const { 0: inputHours, 1: inputMinutes, 2: inputSeconds } = time || [];
     const valInt = parseInt(value || 0);
     switch(name) {
       case "hourInput":
-        callback([valInt, startMinutes, startSeconds]);
+        callback([valInt, inputMinutes, inputSeconds]);
         break;
       case "minuteInput":
-        callback([startHours, valInt, startSeconds]);
+        callback([inputHours, valInt, inputSeconds]);
         break;
       case "secondInput":
-        callback([startHours, startMinutes, valInt]);
+        callback([inputHours, inputMinutes, valInt]);
         break;
       default:
         throw new Error("Attempting to handle time change for unrecognized input.");
@@ -123,6 +124,7 @@ const AppProvider = ({ children }) => {
     setMinutes("");
     setSeconds("");
     setCurrRound(1);
+    setIsWorkTime(true);
   }
 
   // // Event-handler versions of the various setters for passing into timers
@@ -137,8 +139,6 @@ const AppProvider = ({ children }) => {
   // const handleSetSeconds = (e) => {
   //   setSeconds(parseInt(e.target.value || 0));
   // }
-  
-
 
   return (
     <AppContext.Provider
@@ -174,6 +174,9 @@ const AppProvider = ({ children }) => {
         handleChangeNumRounds,
         timerComplete,
         roundComplete,
+        isWorkTime,
+        workTime,
+        restTime,
       }}
     >
       {children}
