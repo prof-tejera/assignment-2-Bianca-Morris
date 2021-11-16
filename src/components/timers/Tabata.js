@@ -56,15 +56,15 @@ const Tabata = (props) => {
       <DisplayTime {...{ hours, minutes, seconds }}/>
       <TimeInputLabel>
         Work Time:
-        <TimeInput onChange={handleSetWorkTime} hoursVal={workHours} minutesVal={workMinutes} secondsVal={workSeconds} />
+        <TimeInput disabled={isTimerRunning} onChange={handleSetWorkTime} hoursVal={workHours} minutesVal={workMinutes} secondsVal={workSeconds} />
       </TimeInputLabel>
       <TimeInputLabel>
         Rest Time:
-        <TimeInput onChange={handleSetRestTime} hoursVal={restHours} minutesVal={restMinutes} secondsVal={restSeconds}/>
+        <TimeInput disabled={isTimerRunning} onChange={handleSetRestTime} hoursVal={restHours} minutesVal={restMinutes} secondsVal={restSeconds}/>
       </TimeInputLabel>
       <RoundsLabel>
         # of Rounds:
-        <Input name="numRoundsTabata" value={numRounds} placeholder="1" onChange={handleChangeNumRounds}/>
+        <Input disabled={isTimerRunning} name="numRoundsTabata" value={numRounds} placeholder="1" onChange={handleChangeNumRounds}/>
       </RoundsLabel>
       <ButtonSpacer>
       { isTimerRunning ?

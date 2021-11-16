@@ -20,17 +20,26 @@ const AppProvider = ({ children }) => {
   const { 0: startHours, 1: startMinutes, 2: startSeconds } = startTime || [];
   const { 0: workHours, 1: workMinutes, 2: workSeconds } = workTime || [];
   const { 0: restHours, 1: restMinutes, 2: restSeconds } = restTime || [];
+  const { 0: endHours, 1: endMinutes, 2: endSeconds } = endTime || [];
 
   /* Counting up the seconds from 00:00:00 to endTime */
   const tickUp = () => {
-    if (seconds === 59) {
-      setSeconds(0);
-      setMinutes((minutes || 0) + 1);
-    } else if (minutes === 59) {
-      setMinutes(0);
-      setHours((hours || 0) + 1);
+    if (
+      seconds === endSeconds && 
+      minutes === endMinutes &&
+      hours === endHours
+    ) {
+      timerComplete();
     } else {
-      setSeconds((seconds || 0) + 1);
+      if (seconds === 59) {
+        setSeconds(0);
+        setMinutes((minutes || 0) + 1);
+      } else if (minutes === 59) {
+        setMinutes(0);
+        setHours((hours || 0) + 1);
+      } else {
+        setSeconds((seconds || 0) + 1);
+      }
     }
   }
 
@@ -105,6 +114,10 @@ const AppProvider = ({ children }) => {
 
   const handleSetRestTime = (e) => {
     handleSetTimeInput(e, setRestTime, restTime);
+  }
+
+  const handleSetEndTime = (e) => {
+    handleSetTimeInput(e, setEndTime, endTime);
   }
 
   const handleSetTimeInput = (e, callback, time) => {
@@ -190,6 +203,7 @@ const AppProvider = ({ children }) => {
         handleSetWorkTime,
         handleSetRestTime,
         handleSetStartTime,
+        handleSetEndTime,
         handleStop,
         handleStart,
         handleReset,
