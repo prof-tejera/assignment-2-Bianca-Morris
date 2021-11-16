@@ -35,14 +35,14 @@ const Tabata = (props) => {
     numRounds,
     handleChangeNumRounds,
     currRound,
-    roundComplete
+    tabataRoundComplete
   } = useContext(AppContext);
 
   const { 0: workHours, 1: workMinutes, 2: workSeconds } = workTime || [];
   const { 0: restHours, 1: restMinutes, 2: restSeconds } = restTime || [];
 
   useInterval(() => {
-    tickDown(roundComplete);
+    tickDown(tabataRoundComplete);
   }, isTimerRunning ? 1000 : null);
 
   // On mount, ensure timer is set to decrement/tick down from startTime

@@ -18,6 +18,8 @@ const AppProvider = ({ children }) => {
   const [ isWorkTime, setIsWorkTime ] = useState(true); // if False, is rest time
 
   const { 0: startHours, 1: startMinutes, 2: startSeconds } = startTime || [];
+  const { 0: workHours, 1: workMinutes, 2: workSeconds } = workTime || [];
+  const { 0: restHours, 1: restMinutes, 2: restSeconds } = restTime || [];
 
   /* Counting up the seconds from 00:00:00 to endTime */
   const tickUp = () => {
@@ -38,7 +40,7 @@ const AppProvider = ({ children }) => {
     alert('Timer complete!');
   }
 
-  const roundComplete = () => {
+  const roundComplete = () => { // Tabata
     if (currRound !== numRounds) {
       // start a new round
       setHours(startHours);
@@ -47,6 +49,33 @@ const AppProvider = ({ children }) => {
       setCurrRound(currRound + 1);
     } else {
       timerComplete();
+    }
+  }
+
+  const tabataRoundComplete = () => {
+    if (!isWorkTime && (currRound === numRounds)) {
+      timerComplete();
+    } else {
+      if (isWorkTime) {
+        // update counter with rest times
+        setHours(restHours);
+        setMinutes(restMinutes);
+        setSeconds(restSeconds);
+
+        // convert to rest period
+        setIsWorkTime(false);
+      } else {
+        // update counter with work times
+        setHours(workHours);
+        setMinutes(workMinutes);
+        setSeconds(workSeconds);
+
+        // convert to work period
+        setIsWorkTime(true);
+
+        // start a new round
+        setCurrRound(currRound + 1);
+      }
     }
   }
 
@@ -110,10 +139,22 @@ const AppProvider = ({ children }) => {
     if (isIncrementing) {
       // specify end time
     } else {
-      // start at start time
-      setHours(startHours);
-      setMinutes(startMinutes);
-      setSeconds(startSeconds);
+      if (timerIdx !== 3) { // XY or Countdown
+        // start at start time
+        setHours(startHours);
+        setMinutes(startMinutes);
+        setSeconds(startSeconds);
+      } else { // Tabata
+        if (isWorkTime) {
+          setHours(workHours);
+          setMinutes(workMinutes);
+          setSeconds(workSeconds);
+        } else {
+          setHours(restHours);
+          setMinutes(restMinutes);
+          setSeconds(restSeconds);
+        }
+      }
     }
     setTimerRunning(true);
   }
@@ -126,19 +167,6 @@ const AppProvider = ({ children }) => {
     setCurrRound(1);
     setIsWorkTime(true);
   }
-
-  // // Event-handler versions of the various setters for passing into timers
-  // const handleSetHours = (e) => {
-  //   setHours(parseInt(e.target.value || 0));
-  // }
-
-  // const handleSetMinutes = (e) => {
-  //   setMinutes(parseInt(e.target.value || 0));
-  // }
-
-  // const handleSetSeconds = (e) => {
-  //   setSeconds(parseInt(e.target.value || 0));
-  // }
 
   return (
     <AppContext.Provider
@@ -174,6 +202,7 @@ const AppProvider = ({ children }) => {
         handleChangeNumRounds,
         timerComplete,
         roundComplete,
+        tabataRoundComplete,
         isWorkTime,
         workTime,
         restTime,
