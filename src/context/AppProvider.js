@@ -20,15 +20,14 @@ const AppProvider = ({ children }) => {
   const [ isWorkTime, setIsWorkTime ] = useState(true); // if False, is rest time
 
   const { 0: hours, 1: minutes, 2: seconds } = timer || [];
-  // console.log("timer", timer, hours, minutes, seconds);
 
   /* Counting up the seconds from 00:00:00 to endTime */
   const tickUp = () => {
-    const { 0: endHours = 0, 1: endMinutes = 0, 2: endSeconds = 0 } = endTime || [];
+    const { 0: endHours, 1: endMinutes, 2: endSeconds } = endTime || [];
     if (
-      (seconds || 0) === endSeconds && 
-      (minutes || 0) === endMinutes &&
-      (hours || 0) === endHours
+      (seconds || 0) === (endSeconds || 0) && 
+      (minutes || 0) === (endMinutes || 0) &&
+      (hours || 0) === (endHours || 0)
     ) {
       timerComplete();
     } else {
