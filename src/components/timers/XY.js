@@ -40,6 +40,8 @@ const XY = (props) => {
   useEffect(() => { setIsIncrementing(false); }, [setIsIncrementing]);
 
   const noStartTimeInputted = !startHours && !startMinutes && !startSeconds;
+  const invalidRounds = currRound > numRounds;
+  const disableStart = noStartTimeInputted || invalidRounds;
 
   return (
     <React.Fragment>
@@ -57,7 +59,7 @@ const XY = (props) => {
       <ButtonSpacer>
         { isTimerRunning ?
           <Button onClick={handleStop} variant="danger">STOP</Button>:
-          <Button onClick={handleStart} disabled={noStartTimeInputted}>START</Button>
+          <Button onClick={handleStart} disabled={disableStart}>START</Button>
         }
         <Button onClick={handleReset} variant="secondary">RESET</Button>
       </ButtonSpacer>

@@ -50,7 +50,8 @@ const Tabata = (props) => {
 
   const noWorkTimeInputted = !workHours && !workMinutes && !workSeconds;
   const noRestTimeInputted = !restHours && !restMinutes && !restSeconds;
-  const startDisabled = noWorkTimeInputted && noRestTimeInputted; // allow to start as long as work or rest is present
+  const invalidRounds = currRound > numRounds;
+  const startDisabled = (noWorkTimeInputted && noRestTimeInputted) || invalidRounds; // allow to start as long as work or rest is present
 
   return (
     <React.Fragment>
