@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 
 import { AppContext } from "../../context/AppProvider";
 import { useInterval } from "../../utils/customReactHooks";
+import { isTimeABeforeTimeB } from "../../utils/helpers";
 
 import { H1 } from "../../utils/tokensAndTheme";
 import Button, { ButtonSpacer } from "../generic/Button";
@@ -33,6 +34,8 @@ const Stopwatch = (props) =>  {
   useEffect(() => { setIsIncrementing(true);}, [setIsIncrementing]);
 
   const noEndTimeInputted = !endHours && !endMinutes && !endSeconds;
+  const endTimeEarlierThanStartTime = isTimeABeforeTimeB(endTime, [hours, minutes, seconds], true);
+  const disableStart = noEndTimeInputted || endTimeEarlierThanStartTime;
 
   return (
     <React.Fragment>
@@ -45,7 +48,7 @@ const Stopwatch = (props) =>  {
       <ButtonSpacer>
         { isTimerRunning ?
           <Button onClick={handleStop} variant="danger">STOP</Button>:
-          <Button onClick={handleStart} disabled={noEndTimeInputted}>START</Button>
+          <Button onClick={handleStart} disabled={disableStart}>START</Button>
         }
         <Button onClick={handleReset} variant="secondary">RESET</Button>
       </ButtonSpacer>
