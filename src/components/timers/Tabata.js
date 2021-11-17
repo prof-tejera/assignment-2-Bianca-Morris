@@ -48,6 +48,9 @@ const Tabata = (props) => {
   // On mount, ensure timer is set to decrement/tick down from startTime
   useEffect(() => { setIsIncrementing(false); }, [setIsIncrementing]);
 
+  const noWorkTimeInputted = !workHours && !workMinutes && !workSeconds;
+  const noRestTimeInputted = !restHours && !restMinutes && !restSeconds;
+  const startDisabled = noWorkTimeInputted && noRestTimeInputted; // allow to start as long as work or rest is present
 
   return (
     <React.Fragment>
@@ -69,7 +72,7 @@ const Tabata = (props) => {
       <ButtonSpacer>
       { isTimerRunning ?
           <Button onClick={handleStop} variant="danger">STOP</Button>:
-          <Button onClick={handleStart} disabled={numRounds <= 0}>START</Button>
+          <Button onClick={handleStart} disabled={startDisabled}>START</Button>
         }
         <Button onClick={handleReset} variant="secondary">RESET</Button>
       </ButtonSpacer>

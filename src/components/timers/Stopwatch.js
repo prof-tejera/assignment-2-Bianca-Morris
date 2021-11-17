@@ -32,6 +32,8 @@ const Stopwatch = (props) =>  {
   // On mount, ensure timer is set to increment/tick up from 00:00:00
   useEffect(() => { setIsIncrementing(true);}, [setIsIncrementing]);
 
+  const noEndTimeInputted = !endHours && !endMinutes && !endSeconds;
+
   return (
     <React.Fragment>
       <H1>Stopwatch</H1>
@@ -43,7 +45,7 @@ const Stopwatch = (props) =>  {
       <ButtonSpacer>
         { isTimerRunning ?
           <Button onClick={handleStop} variant="danger">STOP</Button>:
-          <Button onClick={handleStart}>START</Button>
+          <Button onClick={handleStart} disabled={noEndTimeInputted}>START</Button>
         }
         <Button onClick={handleReset} variant="secondary">RESET</Button>
       </ButtonSpacer>

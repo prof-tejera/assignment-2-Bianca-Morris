@@ -35,6 +35,8 @@ const Countdown = (props) => {
   // On mount, ensure timer is set to decrement/tick down from startTime
   useEffect(() => { setIsIncrementing(false); }, [setIsIncrementing]);
 
+  const noStartTimeInputted = !startHours && !startMinutes && !startSeconds;
+
   return (
     <React.Fragment>
       <H1>Countdown</H1>
@@ -46,7 +48,7 @@ const Countdown = (props) => {
       <ButtonSpacer>
         { isTimerRunning ?
           <Button onClick={handleStop} variant="danger">STOP</Button>:
-          <Button onClick={handleStart}>START</Button>
+          <Button onClick={handleStart} disabled={noStartTimeInputted}>START</Button>
         }
         <Button onClick={handleReset} variant="secondary">RESET</Button>
       </ButtonSpacer>
