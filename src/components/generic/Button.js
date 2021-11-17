@@ -17,6 +17,13 @@ const BaseButton = styled.button`
     font-size: 30px;
     font-weight: 700;
     font-family: SourceCodePro;
+    :disabled {
+        background-color: #dddddd;
+        cursor: not-allowed;
+        :hover {
+            background-color: #dddddd;
+        }
+    }
 `;
 
 const ButtonPrimary = styled(BaseButton)`
