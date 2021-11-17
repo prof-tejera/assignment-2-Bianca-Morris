@@ -54,7 +54,7 @@ const XY = (props) => {
       </TimeInputLabel>
       <RoundsLabel>
         # of Rounds:
-        <Input name="numRoundsXY" value={numRounds} placeholder="1" onChange={handleChangeNumRounds}/>
+        <Input name="numRoundsXY" disabled={isTimerRunning} value={numRounds} placeholder="1" onChange={handleChangeNumRounds}/>
       </RoundsLabel>
       <ButtonSpacer>
         { isTimerRunning ?
