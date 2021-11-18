@@ -1,6 +1,6 @@
 /**
- * Only one helper function here currently; this will likely expand as I 
- * work on making the timers functional.
+ * Various functions for dealing with time that don't require state.
+ * Note: hooks are in customReactHooks.js instead.
  */
 
 /**

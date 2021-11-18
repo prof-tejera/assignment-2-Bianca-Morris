@@ -2,8 +2,7 @@ import PropTypes from "prop-types";
 
 /**
  * A centralized collection of all of the prop types used across
- * the project. Will evolve as more features are added and things change;
- * these are rough estimates of the types needed.
+ * the project.
  */
 
 export const globalPropTypes = {
