@@ -9,7 +9,9 @@ import DisplayTime from "../generic/DisplayTime";
 import TimeInput, { TimeInputLabel } from "../generic/TimeInput";
 import TimerControls from "../generic/TimerControls";
 
-
+/**
+ * A timer that counts up to startTime amount of time (e.g. count up to 2 minutes and 30 seconds, starting at 0).
+ */
 const Countdown = (props) => {
   const {
     hours,

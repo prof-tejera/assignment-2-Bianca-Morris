@@ -253,7 +253,7 @@ const Documentation = () => {
               defaultValue: "false"
             },
             {
-              prop: "context",
+              prop: "context (not technically a prop...)",
               description: "This component needs to use global AppContext for event handlers and conditional display.",
               type: "object",
               defaultValue: "undefined"

@@ -9,6 +9,9 @@ import DisplayTime from "../generic/DisplayTime";
 import TimeInput, { TimeInputLabel } from "../generic/TimeInput";
 import TimerControls from "../generic/TimerControls";
 
+/**
+ * A timer that counts up to endTime amount of time (e.g. count up to 2 minutes and 30 seconds, starting at 0)
+ */
 const Stopwatch = (props) =>  {
   const {
     hours,
@@ -31,6 +34,7 @@ const Stopwatch = (props) =>  {
   // On mount, ensure timer is set to increment/tick up from 00:00:00
   useEffect(() => { setIsIncrementing(true);}, [setIsIncrementing]);
 
+  // Set some constraints to avoid strange state combos
   const noEndTimeInputted = !endHours && !endMinutes && !endSeconds;
   const endTimeEarlierThanStartTime = isTimeABeforeTimeB(endTime, [hours, minutes, seconds], true);
   const disableStart = noEndTimeInputted || endTimeEarlierThanStartTime;

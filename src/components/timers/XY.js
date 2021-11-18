@@ -10,7 +10,10 @@ import TimeInput, { TimeInputLabel } from "../generic/TimeInput";
 import Input from "../generic/Input";
 import TimerControls from "../generic/TimerControls";
 
-
+/**
+ * A timer that counts down from starTime per round, for numRounds number of rounds
+ * (e.g. 1 minute for 10 minutes would count down from 1 minute to 0, then start another countdown, etc, 10 times)
+ */
 const XY = (props) => {
   const {
     hours,
