@@ -32,6 +32,9 @@ const AppProvider = ({ children }) => {
 
   const { 0: hours, 1: minutes, 2: seconds } = timer || [];
 
+  const timerHasBeenStarted = (!!hours || !!minutes || !!seconds);
+  const timerHasNotBeenStarted = (!hours && minutes && seconds);
+
   /* Counting up the seconds from 00:00:00 to endTime */
   const tickUp = () => {
     const { 0: endHours, 1: endMinutes, 2: endSeconds } = endTime || [];
@@ -148,9 +151,7 @@ const AppProvider = ({ children }) => {
   }
 
   const handleStart = (e) => {
-    if (isIncrementing) {
-      // specify end time
-    } else {
+    if (!isIncrementing) {
       if (timerIdx !== 3) { // XY or Countdown
         // start at start time
         setTimer(startTime);
@@ -163,6 +164,14 @@ const AppProvider = ({ children }) => {
       }
     }
     setTimerRunning(true);
+  }
+
+  const handleResume = (e) => {
+    if (!isIncrementing) {
+      setTimerRunning(true);
+    } else {
+      handleStart(e);
+    }
   }
 
   const handleReset = (e) => {
@@ -196,6 +205,7 @@ const AppProvider = ({ children }) => {
         handleStop,
         handleStart,
         handleReset,
+        handleResume,
         tickUp,
         tickDown,
         isIncrementing,
@@ -209,6 +219,8 @@ const AppProvider = ({ children }) => {
         isWorkTime,
         workTime,
         restTime,
+        timerHasBeenStarted,
+        timerHasNotBeenStarted
       }}
     >
       {children}
