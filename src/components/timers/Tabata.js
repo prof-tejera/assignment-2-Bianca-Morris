@@ -1,16 +1,15 @@
 import React, { useContext, useEffect } from "react";
-import PropTypes from "prop-types";
 import styled from "styled-components";
 
 import { AppContext } from "../../context/AppProvider";
 import { useInterval } from "../../utils/customReactHooks";
 
 import { H1 } from "../../utils/tokensAndTheme";
-import Button, { ButtonSpacer } from "../generic/Button";
 import DisplayTime from "../generic/DisplayTime";
 import DisplayRounds, { RoundsLabel } from "../generic/DisplayRounds";
 import TimeInput, { TimeInputLabel } from "../generic/TimeInput";
 import Input from "../generic/Input";
+import TimerControls from "../generic/TimerControls";
 
 const LessMarginH1 = styled(H1)`
   margin: 5px;
@@ -28,9 +27,6 @@ const Tabata = (props) => {
     restTime,
     handleSetRestTime,
     tickDown,
-    handleStop,
-    handleStart,
-    handleReset,
     setIsIncrementing,
     numRounds,
     handleChangeNumRounds,
@@ -70,22 +66,9 @@ const Tabata = (props) => {
         # of Rounds:
         <Input disabled={isTimerRunning} name="numRoundsTabata" value={numRounds} placeholder="1" onChange={handleChangeNumRounds}/>
       </RoundsLabel>
-      <ButtonSpacer>
-      { isTimerRunning ?
-          <Button onClick={handleStop} variant="danger">STOP</Button>:
-          <Button onClick={handleStart} disabled={startDisabled}>START</Button>
-        }
-        <Button onClick={handleReset} variant="secondary">RESET</Button>
-      </ButtonSpacer>
+      <TimerControls {...{ startDisabled }} />
     </React.Fragment>
   );
-}
-Tabata.propTypes = {
-  onInputRestTime: PropTypes.func,
-  onInputStartTime: PropTypes.func,
-  onInputRounds: PropTypes.func,
-  onStart: PropTypes.func,
-  onReset: PropTypes.func,
 }
 
 export default Tabata;

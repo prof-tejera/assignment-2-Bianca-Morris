@@ -4,11 +4,11 @@ import { AppContext } from "../../context/AppProvider";
 import { useInterval } from "../../utils/customReactHooks";
 
 import { H1 } from "../../utils/tokensAndTheme";
-import Button, { ButtonSpacer } from "../generic/Button";
 import DisplayTime from "../generic/DisplayTime";
 import DisplayRounds, { RoundsLabel } from "../generic/DisplayRounds";
 import TimeInput, { TimeInputLabel } from "../generic/TimeInput";
 import Input from "../generic/Input";
+import TimerControls from "../generic/TimerControls";
 
 
 const XY = (props) => {
@@ -20,9 +20,6 @@ const XY = (props) => {
     startTime,
     handleSetStartTime,
     tickDown,
-    handleStop,
-    handleStart,
-    handleReset,
     setIsIncrementing,
     numRounds,
     handleChangeNumRounds,
@@ -56,13 +53,7 @@ const XY = (props) => {
         # of Rounds:
         <Input name="numRoundsXY" disabled={isTimerRunning} value={numRounds} placeholder="1" onChange={handleChangeNumRounds}/>
       </RoundsLabel>
-      <ButtonSpacer>
-        { isTimerRunning ?
-          <Button onClick={handleStop} variant="danger">STOP</Button>:
-          <Button onClick={handleStart} disabled={disableStart}>START</Button>
-        }
-        <Button onClick={handleReset} variant="secondary">RESET</Button>
-      </ButtonSpacer>
+      <TimerControls startDisabled={disableStart}/>
     </React.Fragment>
   );
 }

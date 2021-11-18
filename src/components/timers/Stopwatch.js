@@ -5,9 +5,9 @@ import { useInterval } from "../../utils/customReactHooks";
 import { isTimeABeforeTimeB } from "../../utils/helpers";
 
 import { H1 } from "../../utils/tokensAndTheme";
-import Button, { ButtonSpacer } from "../generic/Button";
 import DisplayTime from "../generic/DisplayTime";
 import TimeInput, { TimeInputLabel } from "../generic/TimeInput";
+import TimerControls from "../generic/TimerControls";
 
 const Stopwatch = (props) =>  {
   const {
@@ -16,9 +16,6 @@ const Stopwatch = (props) =>  {
     seconds,
     isTimerRunning,
     tickUp,
-    handleStop,
-    handleStart,
-    handleReset,
     setIsIncrementing,
     endTime,
     handleSetEndTime
@@ -45,13 +42,7 @@ const Stopwatch = (props) =>  {
         End Time:
         <TimeInput disabled={isTimerRunning} hoursVal={endHours} minutesVal={endMinutes} secondsVal={endSeconds} onChange={handleSetEndTime} />
       </TimeInputLabel>
-      <ButtonSpacer>
-        { isTimerRunning ?
-          <Button onClick={handleStop} variant="danger">STOP</Button>:
-          <Button onClick={handleStart} disabled={disableStart}>START</Button>
-        }
-        <Button onClick={handleReset} variant="secondary">RESET</Button>
-      </ButtonSpacer>
+      <TimerControls startDisabled={disableStart} />
     </React.Fragment>
   );
 }

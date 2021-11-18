@@ -5,10 +5,9 @@ import { useInterval } from "../../utils/customReactHooks";
 // import { isTimeABeforeTimeB } from "../../utils/helpers";
 
 import { H1 } from "../../utils/tokensAndTheme";
-import Button, { ButtonSpacer } from "../generic/Button";
 import DisplayTime from "../generic/DisplayTime";
 import TimeInput, { TimeInputLabel } from "../generic/TimeInput";
-
+import TimerControls from "../generic/TimerControls";
 
 
 const Countdown = (props) => {
@@ -20,9 +19,6 @@ const Countdown = (props) => {
     startTime,
     handleSetStartTime,
     tickDown,
-    handleStop,
-    handleStart,
-    handleReset,
     setIsIncrementing,
     timerComplete
   } = useContext(AppContext);
@@ -40,7 +36,6 @@ const Countdown = (props) => {
   // const endTimeEarlierThanStartTime = isTimeABeforeTimeB(startTime, [hours, minutes, seconds], true);
   // const disableStart = noStartTimeInputted || endTimeEarlierThanStartTime;
 
-
   return (
     <React.Fragment>
       <H1>Countdown</H1>
@@ -49,13 +44,7 @@ const Countdown = (props) => {
         Start Time:
         <TimeInput disabled={isTimerRunning} hoursVal={startHours} minutesVal={startMinutes} secondsVal={startSeconds} onChange={handleSetStartTime} />
       </TimeInputLabel>
-      <ButtonSpacer>
-        { isTimerRunning ?
-          <Button onClick={handleStop} variant="danger">STOP</Button>:
-          <Button onClick={handleStart} disabled={noStartTimeInputted}>START</Button>
-        }
-        <Button onClick={handleReset} variant="secondary">RESET</Button>
-      </ButtonSpacer>
+      <TimerControls startDisabled={noStartTimeInputted} />
     </React.Fragment>
   );
 }
