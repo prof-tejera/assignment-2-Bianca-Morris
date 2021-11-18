@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import useSound from 'use-sound';
 
 import timerEndSound from '../sfx/alarm.wav';
 import restStartSound from '../sfx/restStart.wav';
 import roundEndSound from '../sfx/roundEnd.wav';
+import { usePersistedState } from '../utils/customReactHooks';
 
 export const AppContext = React.createContext({});
 
@@ -11,19 +12,19 @@ const emptyTimer = ["", "", ""]; // [Hours, Minutes, Seconds]
 
 const AppProvider = ({ children }) => {
   // State shared across all timers
-  const [ timer, setTimer ] = useState(emptyTimer);
-  const [ timerIdx, setTimerIdx ] = useState(0); // Timer array specified in TimersView.js
-  const [ isTimerRunning, setTimerRunning ] = useState(false);
-  const [ isIncrementing, setIsIncrementing ] = useState(true); // if False, is decrementing
+  const [ timer, setTimer ] = usePersistedState("timer", emptyTimer);
+  const [ timerIdx, setTimerIdx ] = usePersistedState("timer-idx", 0); // Timer array specified in TimersView.js
+  const [ isTimerRunning, setTimerRunning ] = usePersistedState("is-timer-running", false);
+  const [ isIncrementing, setIsIncrementing ] = usePersistedState("is-incrementing", true); // if False, is decrementing
 
   // States specific to certain timers
-  const [ startTime, setStartTime ] = useState(emptyTimer); // Used in Countdown & XY
-  const [ endTime, setEndTime ] = useState(emptyTimer); // Used in Stopwatch
-  const [ workTime, setWorkTime ] = useState(emptyTimer); // Used in Tabata
-  const [ restTime, setRestTime ] = useState(emptyTimer); // Used in Tabata
-  const [ numRounds, setNumRounds ] = useState(1); // Used in Tabata and XY
-  const [ currRound, setCurrRound ] = useState(1); // Used in Tabata and XY
-  const [ isWorkTime, setIsWorkTime ] = useState(true); // if False, is rest time
+  const [ startTime, setStartTime ] = usePersistedState("start-time", emptyTimer); // Used in Countdown & XY
+  const [ endTime, setEndTime ] = usePersistedState("end-time", emptyTimer); // Used in Stopwatch
+  const [ workTime, setWorkTime ] = usePersistedState("work-time", emptyTimer); // Used in Tabata
+  const [ restTime, setRestTime ] = usePersistedState("rest-time", emptyTimer); // Used in Tabata
+  const [ numRounds, setNumRounds ] = usePersistedState("num-rounds", 1); // Used in Tabata and XY
+  const [ currRound, setCurrRound ] = usePersistedState("curr-round", 1); // Used in Tabata and XY
+  const [ isWorkTime, setIsWorkTime ] = usePersistedState("is-work-time", true); // if False, is rest time
 
   // Sound Hooks
   const [playTimerEnd] = useSound(timerEndSound);
