@@ -32,15 +32,23 @@ const TimerControls = (props) => {
   } = useContext(AppContext);
 
   const { 
-    stopDisabled, startDisabled, resetDisabled
+    stopDisabled, startDisabled, resetDisabled, resumeDisabled
   } = props;
+
+  const resetButton = (
+    <Button onClick={handleReset} variant="secondary" disabled={resetDisabled}>
+        <ButtonIconHolderRow>
+            <FontAwesomeIcon icon={faSync} size="xs"/>
+            <span>RESET</span>
+        </ButtonIconHolderRow>
+    </Button>);
 
   if (!isTimerRunning) {
     return (
       <>
         <ButtonSpacer>
             { timerHasBeenStarted &&
-                <Button onClick={handleResume} disabled={startDisabled}>
+                <Button onClick={handleResume} disabled={resumeDisabled}>
                     <ButtonIconHolderRow>
                         <FontAwesomeIcon icon={faPlay} size="xs"/>
                         <span>RESUME</span>
@@ -54,12 +62,7 @@ const TimerControls = (props) => {
                         <span>START</span>
                     </ButtonIconHolderRow>
                 </Button>} 
-            <Button onClick={handleReset} variant="secondary" disabled={resetDisabled}>
-                <ButtonIconHolderRow>
-                    <FontAwesomeIcon icon={faSync} size="xs"/>
-                    <span>RESET</span>
-                </ButtonIconHolderRow>
-            </Button>
+            { resetButton }
         </ButtonSpacer>
       </>
     )
@@ -74,12 +77,7 @@ const TimerControls = (props) => {
                     <span>STOP</span>
                 </ButtonIconHolderRow>
             </Button>} 
-        <Button onClick={handleReset} variant="secondary" disabled={resetDisabled}>
-            <ButtonIconHolderRow>
-                <FontAwesomeIcon icon={faSync} size="xs"/>
-                <span>RESET</span>
-            </ButtonIconHolderRow>
-        </Button>
+        { resetButton }
         { isTimerRunning && 
             <Button onClick={() => { timerComplete(); handleReset()}}>
                 <ButtonIconHolderRow>
@@ -94,12 +92,14 @@ const TimerControls = (props) => {
 TimerControls.propTypes = {
     startDisabled: globalPropTypes.disabled,
     stopDisabled: globalPropTypes.disabled,
-    resetDisabled: globalPropTypes.disabled
+    resetDisabled: globalPropTypes.disabled,
+    resumeDisabled: globalPropTypes.disabled
 }
 TimerControls.defaultProps = {
     startDisabled: false,
     stopDisabled: false,
-    resetDisabled: false
+    resetDisabled: false,
+    resumeDisabled: false,
 }
 
 export default TimerControls;

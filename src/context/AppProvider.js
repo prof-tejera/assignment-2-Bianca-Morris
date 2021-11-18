@@ -32,8 +32,7 @@ const AppProvider = ({ children }) => {
 
   const { 0: hours, 1: minutes, 2: seconds } = timer || [];
 
-  const timerHasBeenStarted = (!!hours || !!minutes || !!seconds);
-  const timerHasNotBeenStarted = (!hours && minutes && seconds);
+  const timerHasBeenStarted = (!!hours || !!minutes || !!seconds) || (currRound !== 1) || !isWorkTime;
 
   /* Counting up the seconds from 00:00:00 to endTime */
   const tickUp = () => {
@@ -220,7 +219,6 @@ const AppProvider = ({ children }) => {
         workTime,
         restTime,
         timerHasBeenStarted,
-        timerHasNotBeenStarted
       }}
     >
       {children}

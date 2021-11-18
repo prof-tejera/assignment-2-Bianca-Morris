@@ -35,6 +35,7 @@ const Stopwatch = (props) =>  {
   const endTimeEarlierThanStartTime = isTimeABeforeTimeB(endTime, [hours, minutes, seconds], true);
   const disableStart = noEndTimeInputted || endTimeEarlierThanStartTime;
   const disableInput = isTimerRunning || timerHasBeenStarted;
+  const disableResume = !!(hours || 0 === endHours || 0) && !!(minutes || 0 === endMinutes || 0 ) && !!(seconds || 0 === endSeconds || 0);
 
   return (
     <React.Fragment>
@@ -44,7 +45,7 @@ const Stopwatch = (props) =>  {
         End Time:
         <TimeInput disabled={disableInput} hoursVal={endHours} minutesVal={endMinutes} secondsVal={endSeconds} onChange={handleSetEndTime} />
       </TimeInputLabel>
-      <TimerControls startDisabled={disableStart} />
+      <TimerControls startDisabled={disableStart} resumeDisabled={disableResume} />
     </React.Fragment>
   );
 }

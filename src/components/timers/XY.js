@@ -40,6 +40,7 @@ const XY = (props) => {
   const noStartTimeInputted = !startHours && !startMinutes && !startSeconds;
   const invalidRounds = currRound > numRounds;
   const disableStart = noStartTimeInputted || invalidRounds;
+  const disableResume = numRounds === currRound && (!hours && !minutes && !seconds);
   const disableInputs = timerHasBeenStarted || isTimerRunning;
 
   return (
@@ -53,9 +54,9 @@ const XY = (props) => {
       </TimeInputLabel>
       <RoundsLabel>
         # of Rounds:
-        <Input name="numRoundsXY" disabled={disableInputs} placeholder="1" onChange={handleChangeNumRounds}/>
+        <Input name="numRoundsXY" disabled={disableInputs} value={numRounds} placeholder="1" onChange={handleChangeNumRounds}/>
       </RoundsLabel>
-      <TimerControls startDisabled={disableStart}/>
+      <TimerControls startDisabled={disableStart} resumeDisabled={disableResume} />
     </React.Fragment>
   );
 }

@@ -50,6 +50,7 @@ const Tabata = (props) => {
   const invalidRounds = currRound > numRounds;
   const startDisabled = (noWorkTimeInputted && noRestTimeInputted) || invalidRounds; // allow to start as long as work or rest is present
   const disableInputs = timerHasBeenStarted || isTimerRunning;
+  const disableResume = numRounds === currRound && (!hours && !minutes && !seconds);
 
   return (
     <React.Fragment>
@@ -68,7 +69,7 @@ const Tabata = (props) => {
         # of Rounds:
         <Input disabled={disableInputs} name="numRoundsTabata" value={numRounds} placeholder="1" onChange={handleChangeNumRounds}/>
       </RoundsLabel>
-      <TimerControls {...{ startDisabled }} />
+      <TimerControls {...{ startDisabled }}  resumeDisabled={disableResume}/>
     </React.Fragment>
   );
 }

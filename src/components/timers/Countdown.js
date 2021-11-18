@@ -45,7 +45,7 @@ const Countdown = (props) => {
         Start Time:
         <TimeInput disabled={isTimerRunning || timerHasBeenStarted} hoursVal={startHours} minutesVal={startMinutes} secondsVal={startSeconds} onChange={handleSetStartTime} />
       </TimeInputLabel>
-      <TimerControls startDisabled={noStartTimeInputted} />
+      <TimerControls startDisabled={noStartTimeInputted}/>
     </React.Fragment>
   );
 }
