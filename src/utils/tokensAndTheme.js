@@ -23,6 +23,7 @@ export const colorTokens = {
     white: "#FFFFFF",
     purpleLight: "#617cb7",
     purpleMedium: "#2b3254",
+    lightGray: "#DDDDDD",
 };
 
 // Raw color values w/transparency (RGBA)
@@ -40,6 +41,7 @@ export const themeColors = {
     btnSecondaryHover: colorTokens.pinkDarker,
     btnDanger: colorTokens.redLight,
     btnDangerHover: colorTokens.redDarker,
+    btnDisabled: colorTokens.lightGray,
     // Inputs
     inputBackground: colorTokens.white,
     inputPlaceholder: colorTokens.babyBlue,

@@ -18,10 +18,10 @@ const BaseButton = styled.button`
     font-weight: 700;
     font-family: SourceCodePro;
     :disabled {
-        background-color: #dddddd;
+        background-color: ${themeColors.btnDisabled};
         cursor: not-allowed;
         :hover {
-            background-color: #dddddd;
+            background-color: ${themeColors.btnDisabled};
         }
     }
 `;

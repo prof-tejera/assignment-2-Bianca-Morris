@@ -10,6 +10,7 @@ import DisplayTime from "../components/generic/DisplayTime";
 import DisplayRounds from "../components/generic/DisplayRounds";
 import Panel from "../components/generic/Panel";
 import TimeInput from "../components/generic/TimeInput";
+import TimerControls from "../components/generic/TimerControls";
 
 const Container = styled.div`
   display: flex;
@@ -45,7 +46,7 @@ const Documentation = () => {
         />
         <DocumentComponent
           title="Button "
-          component={<Button onClick={() => console.log("Button clicked!")} />}
+          component={<Button onClick={() => alert("You clicked the button!")} />}
           propDocs={[
             {
               prop: "type",
@@ -119,6 +120,18 @@ const Documentation = () => {
               type: "string or number",
               defaultValue: "''",
             },
+            {
+              prop: "min",
+              description: "If type is number, this will be used as the minimum the field accepts",
+              type: "string",
+              defaultValue: "undefined",
+            },
+            {
+              prop: "max",
+              description: "If type is number, this will be used as the maximum the field accepts",
+              type: "string",
+              defaultValue: "undefined"
+            }
           ]}
         />
         <DocumentComponent
@@ -213,6 +226,36 @@ const Documentation = () => {
               prop: "onChange",
               description: "A single function to handle updates for hours, minutes and seconds",
               type: "function",
+              defaultValue: "undefined"
+            }
+          ]}
+        />
+        <DocumentComponent
+          title="TimerControls "
+          component={<TimerControls startDisabled={true} stopDisabled={true} resetDisabled={true} />}
+          propDocs={[
+            {
+              prop: "startDisabled",
+              description: "Should start button be disabled?",
+              type: "boolean",
+              defaultValue: "false",
+            },
+            {
+              prop: "stopDisabled",
+              description: "Should stop button be disabled?",
+              type: "boolean",
+              defaultValue: "false"
+            },
+            {
+              prop: "resetDisabled",
+              description: "Should reset button be disabled?",
+              type: "boolean",
+              defaultValue: "false"
+            },
+            {
+              prop: "context",
+              description: "This component needs to use global AppContext for event handlers and conditional display.",
+              type: "object",
               defaultValue: "undefined"
             }
           ]}
