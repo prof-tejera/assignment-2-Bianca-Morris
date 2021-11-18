@@ -22,8 +22,8 @@ const ButtonIconHolderRow = styled.div`
 
 const TimerControls = (props) => {
   const {
-    timerComplete,
     isTimerRunning,
+    handleSkipToEnd,
     handleStop,
     handleStart,
     handleReset,
@@ -79,7 +79,7 @@ const TimerControls = (props) => {
             </Button>} 
         { resetButton }
         { isTimerRunning && 
-            <Button onClick={() => { timerComplete(); handleReset()}}>
+            <Button onClick={handleSkipToEnd}>
                 <ButtonIconHolderRow>
                     <FontAwesomeIcon icon={faFastForward} size="xs"/>
                     <span>SKIP</span>

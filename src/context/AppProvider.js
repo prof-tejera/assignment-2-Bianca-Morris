@@ -181,6 +181,17 @@ const AppProvider = ({ children }) => {
     setIsWorkTime(true);
   }
 
+  const handleSkipToEnd = (e) => {
+    if (!isIncrementing) { // XY, Tabata, Countdown
+      setTimer([0, 0, 0]);
+      setCurrRound(numRounds);
+      setIsWorkTime(false);
+    } else { // Stopwatch
+      setTimer(endTime);
+    }
+    timerComplete();
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -193,6 +204,7 @@ const AppProvider = ({ children }) => {
         handleSetRestTime,
         handleSetStartTime,
         handleSetWorkTime,
+        handleSkipToEnd,
         handleStart,
         handleStop,
         hours,
