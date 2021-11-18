@@ -42,11 +42,14 @@ const AppProvider = ({ children }) => {
     ) {
       timerComplete();
     } else {
-      if (seconds === 59) {
+      const endOfMinute = seconds === 59;
+      const endOfHour = minutes === 59;
+      
+      if (endOfMinute && endOfHour) { // update hour
+        setTimer([(hours || 0) + 1, 0, 0]);
+      } else if (endOfMinute) { // update minute
         setTimer([hours, (minutes || 0) + 1, 0]);
-      } else if (minutes === 59) {
-        setTimer([(hours || 0) + 1, 0, seconds]);
-      } else {
+      } else { // update second
         setTimer([hours, minutes, (seconds || 0) + 1]);
       }
     }
