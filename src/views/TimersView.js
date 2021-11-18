@@ -51,7 +51,7 @@ const ActiveTimerTitle = styled(TimerTitle)`
 `;
 
 function App() {
-  const { timerIdx, setTimerIdx, handleStop } = useContext(AppContext);
+  const { timerIdx, setTimerIdx, handleReset } = useContext(AppContext);
 
   const timers = [
     { title: "Stopwatch", C: <Stopwatch /> },
@@ -61,7 +61,7 @@ function App() {
   ];
 
   const onTimerSwitch = (e, idx) => {
-    handleStop(); // ensure any timers currently running are stopped
+    handleReset(); // ensure any timers currently running are stopped & timer is reset
     setTimerIdx(idx);
   };
 
