@@ -31,7 +31,8 @@ const Tabata = (props) => {
     numRounds,
     handleChangeNumRounds,
     currRound,
-    tabataRoundComplete
+    tabataRoundComplete,
+    timerHasBeenStarted
   } = useContext(AppContext);
 
   const { 0: workHours, 1: workMinutes, 2: workSeconds } = workTime || [];
@@ -48,6 +49,7 @@ const Tabata = (props) => {
   const noRestTimeInputted = !restHours && !restMinutes && !restSeconds;
   const invalidRounds = currRound > numRounds;
   const startDisabled = (noWorkTimeInputted && noRestTimeInputted) || invalidRounds; // allow to start as long as work or rest is present
+  const disableInputs = timerHasBeenStarted || isTimerRunning;
 
   return (
     <React.Fragment>
@@ -56,15 +58,15 @@ const Tabata = (props) => {
       <DisplayTime {...{ hours, minutes, seconds }}/>
       <TimeInputLabel>
         Work Time:
-        <TimeInput disabled={isTimerRunning} onChange={handleSetWorkTime} hoursVal={workHours} minutesVal={workMinutes} secondsVal={workSeconds} />
+        <TimeInput disabled={disableInputs} onChange={handleSetWorkTime} hoursVal={workHours} minutesVal={workMinutes} secondsVal={workSeconds} />
       </TimeInputLabel>
       <TimeInputLabel>
         Rest Time:
-        <TimeInput disabled={isTimerRunning} onChange={handleSetRestTime} hoursVal={restHours} minutesVal={restMinutes} secondsVal={restSeconds}/>
+        <TimeInput disabled={disableInputs} onChange={handleSetRestTime} hoursVal={restHours} minutesVal={restMinutes} secondsVal={restSeconds}/>
       </TimeInputLabel>
       <RoundsLabel>
         # of Rounds:
-        <Input disabled={isTimerRunning} name="numRoundsTabata" value={numRounds} placeholder="1" onChange={handleChangeNumRounds}/>
+        <Input disabled={disableInputs} name="numRoundsTabata" value={numRounds} placeholder="1" onChange={handleChangeNumRounds}/>
       </RoundsLabel>
       <TimerControls {...{ startDisabled }} />
     </React.Fragment>

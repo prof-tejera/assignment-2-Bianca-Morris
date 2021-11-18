@@ -18,7 +18,8 @@ const Stopwatch = (props) =>  {
     tickUp,
     setIsIncrementing,
     endTime,
-    handleSetEndTime
+    handleSetEndTime,
+    timerHasBeenStarted
   } = useContext(AppContext);
 
   const { 0: endHours, 1: endMinutes, 2: endSeconds } = endTime || [];
@@ -33,6 +34,7 @@ const Stopwatch = (props) =>  {
   const noEndTimeInputted = !endHours && !endMinutes && !endSeconds;
   const endTimeEarlierThanStartTime = isTimeABeforeTimeB(endTime, [hours, minutes, seconds], true);
   const disableStart = noEndTimeInputted || endTimeEarlierThanStartTime;
+  const disableInput = isTimerRunning || timerHasBeenStarted;
 
   return (
     <React.Fragment>
@@ -40,7 +42,7 @@ const Stopwatch = (props) =>  {
       <DisplayTime {...{ hours, minutes, seconds }} />
       <TimeInputLabel>
         End Time:
-        <TimeInput disabled={isTimerRunning} hoursVal={endHours} minutesVal={endMinutes} secondsVal={endSeconds} onChange={handleSetEndTime} />
+        <TimeInput disabled={disableInput} hoursVal={endHours} minutesVal={endMinutes} secondsVal={endSeconds} onChange={handleSetEndTime} />
       </TimeInputLabel>
       <TimerControls startDisabled={disableStart} />
     </React.Fragment>

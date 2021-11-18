@@ -24,7 +24,8 @@ const XY = (props) => {
     numRounds,
     handleChangeNumRounds,
     currRound,
-    roundComplete
+    roundComplete,
+    timerHasBeenStarted
   } = useContext(AppContext);
 
   const { 0: startHours, 1: startMinutes, 2: startSeconds } = startTime || [];
@@ -39,6 +40,7 @@ const XY = (props) => {
   const noStartTimeInputted = !startHours && !startMinutes && !startSeconds;
   const invalidRounds = currRound > numRounds;
   const disableStart = noStartTimeInputted || invalidRounds;
+  const disableInputs = timerHasBeenStarted || isTimerRunning;
 
   return (
     <React.Fragment>
@@ -47,11 +49,11 @@ const XY = (props) => {
       <DisplayTime {...{ hours, minutes, seconds }} />
       <TimeInputLabel>
         Start Time:
-        <TimeInput disabled={isTimerRunning} hoursVal={startHours} minutesVal={startMinutes} secondsVal={startSeconds} onChange={handleSetStartTime}/>
+        <TimeInput disabled={disableInputs} hoursVal={startHours} minutesVal={startMinutes} secondsVal={startSeconds} onChange={handleSetStartTime}/>
       </TimeInputLabel>
       <RoundsLabel>
         # of Rounds:
-        <Input name="numRoundsXY" disabled={isTimerRunning} value={numRounds} placeholder="1" onChange={handleChangeNumRounds}/>
+        <Input name="numRoundsXY" disabled={disableInputs} placeholder="1" onChange={handleChangeNumRounds}/>
       </RoundsLabel>
       <TimerControls startDisabled={disableStart}/>
     </React.Fragment>
