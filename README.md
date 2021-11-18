@@ -56,3 +56,34 @@ For people looking for an additional challenge, we have provided some bonus feat
 As you have noticed this repository is empty. To begin this assignment you must copy over all of our files from A1 into this repo. I recommend not copying over `node_modules` and instead re-install here. You can then commit and deploy as usual from this repo.
 
 
+
+## Notes & References
+I used a bunch of extra libraries and assets:
+
+**Art & Sound:**
+- Background Image by Maarten van den Heuvel @ [unsplash](https://unsplash.com/@mvdheuvel)
+- Alarm sounds from [mixkit](https://mixkit.co/free-sound-effects/alarm/)
+- Iconography from [fontawesome](https://fontawesome.com/)
+
+**Libraries & Re-used Code:**
+- Use sound npm package/react hook by [Josh Comeau](https://www.joshwcomeau.com/react/announcing-use-sound-react-hook/)
+- UseInterval react hook by [Dan Abramov](https://overreacted.io/making-setinterval-declarative-with-react-hooks/)
+- UsePersistedState react hook by [Prof Tejera](https://github.com/prof-tejera/react7/blob/main/src/hooks.js)
+
+**References, Research, & Inspiration:**
+I got a bunch of ideas for how to construct a clean data model and solve various implementation problems from the following sources:
+- https://stackoverflow.com/questions/29971898/how-to-create-an-accurate-timer-in-javascript
+- https://stackoverflow.com/questions/13802587/how-can-i-convert-a-hhmmss-string-to-a-javascript-date-object
+- https://stackoverflow.com/questions/51145692/styled-component-not-taking-props
+- https://stackoverflow.com/questions/51770246/how-to-validate-numeric-inputs-in-reactjs
+- https://stackoverflow.com/questions/55763957/how-to-clean-up-setinterval-in-useeffect-using-react-hooks/55764160
+- https://stackoverflow.com/questions/53859601/how-do-i-clearinterval-on-click-with-react-hooks/55659592
+- https://stackoverflow.com/questions/55020041/react-hooks-useeffect-cleanup-for-only-componentwillunmount
+- https://medium.com/bb-tutorials-and-thoughts/how-to-create-a-countdown-timer-in-react-app-e99916046292
+- https://javascript.plainenglish.io/this-is-how-i-created-a-countdown-timer-app-in-react-3644afbaabf6
+- FontAwesome documentation
+- React documentation
+- MDN web documentation (Javascript)
+
+## Assignment Link
+[https://prof-tejera.github.io/assignment-2-Bianca-Morris/](https://prof-tejera.github.io/assignment-2-Bianca-Morris/)
