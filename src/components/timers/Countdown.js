@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 
 import { AppContext } from "../../context/AppProvider";
 import { useInterval } from "../../utils/customReactHooks";
+// import { isTimeABeforeTimeB } from "../../utils/helpers";
 
 import { H1 } from "../../utils/tokensAndTheme";
 import Button, { ButtonSpacer } from "../generic/Button";
@@ -36,6 +37,9 @@ const Countdown = (props) => {
   useEffect(() => { setIsIncrementing(false); }, [setIsIncrementing]);
 
   const noStartTimeInputted = !startHours && !startMinutes && !startSeconds;
+  // const endTimeEarlierThanStartTime = isTimeABeforeTimeB(startTime, [hours, minutes, seconds], true);
+  // const disableStart = noStartTimeInputted || endTimeEarlierThanStartTime;
+
 
   return (
     <React.Fragment>
